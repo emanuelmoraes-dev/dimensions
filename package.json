@@ -7,7 +7,7 @@
         "build": "webpack",
         "watch": "webpack --watch",
         "dev": "webpack serve",
-        "console": "ts-node ./src/core/index.ts",
+        "console": "ts-node ./src/console/cli.ts",
         "lint": "eslint src --fix"
     },
     "repository": {
