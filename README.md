@@ -34,11 +34,11 @@
   and roles can be shuffled.
 * There are coliseums where hearts are lost to death, but the winner gains
   the loser's items.
-* There are divine items (extremely strong and rare) that need sacrifices to be
-  able to have (not necessarily can be use). Furthermore, is necessarily to
-  have the needed attributes to be ably to equipe (not necessarily can be use).
-  Maybe it is possibly to equipe a divine items without the necessary
-  attribute, but the debuffs must be very high.
+* There are divine items (extremely strong and rare) that need sacrifices (except
+  if the character has the "Friend os the Gods" bond) to be able to have.
+  Furthermore, is necessarily to have the needed attributes to be ably to equipe
+  (not necessarily can be use). Maybe it is possibly to equipe a divine items
+  without the necessary attribute, but the debuffs must be very high.
 * The quantity of divine items is very limited.
 * If the player try to take a divine item, but he is not strong enough, the
   item will to vanish and will back to game (probably in other location).
