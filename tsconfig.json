@@ -22,7 +22,7 @@
         "strictPropertyInitialization": true,
         "noUnusedLocals": true,
         "noImplicitReturns": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "noUnusedParameters": false,
 
         "downlevelIteration": true
