@@ -155,19 +155,12 @@
 
 ## Personality Points
 * Aggressive
-* Passive
 * Daring
-* Timid
 * Loyal
-* Disloyal
 * Fair
-* Unfair
 * Greedy
-* Generous
 * Curious
-* Incurious
 * Apathetic
-* Empathetic
 
 ## Way of Evolution of the Character:
 Each attribute has two values, the points and the absorb value. Points are
