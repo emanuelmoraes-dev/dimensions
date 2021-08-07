@@ -17,9 +17,9 @@
         "alwaysStrict": true,
         "strictFunctionTypes": true,
         "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictPropertyInitialization": true,
         "strictNullChecks": false,
-        "noImplicitThis": false,
-        "strictPropertyInitialization": false,
 
         "noUnusedLocals": true,
         "noImplicitReturns": true,
