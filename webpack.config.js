@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
     mode: 'development',
@@ -11,7 +12,8 @@ module.exports = {
     },
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: './dist'
+        contentBase: './dist',
+        liveReload: false
     },
     module: {
         rules: [
@@ -37,6 +39,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Evolution'
+        }),
+        new CopyPlugin({
+            patterns: [{ from: 'src/web/static' }],
         })
     ]
 }
