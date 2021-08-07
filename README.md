@@ -121,7 +121,7 @@
 * ...
 
 
-## Itens:
+## Items:
 * Invade some player's world.
 * Expels the invading player.
 * Mark an item you don't want to pay at the moment (eg divine items) and when
