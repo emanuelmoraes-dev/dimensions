@@ -164,13 +164,13 @@
 
 ## Way of Evolution of the Character:
 Each attribute has two values, the points and the absorb value. Points are
-numerical representations of the efficiency of a given movement. Soak values
+numerical representations of the efficiency of a given movement. Absorb values
 define the percentage of points to be absorbed when defeating a particular
-creature or NPC (soaking its DNA). The percentage of points to be absorbed
+creature or NPC (absorbing its DNA). The percentage of points to be absorbed
 by a given attribute will be defined by the attribute's absorption value
 divided by the sum of all the absorption values of all attributes, multiplied
-by a formula to be defined. When soaking DNA from a creature or NPC, the
-player will have their soak values incremented by the enemy's soak values for
+by a formula to be defined. When absorbing DNA from a creature or NPC, the
+player will have their absorb values incremented by the enemy's absorb values for
 each attribute.
 
 Each character, creature or NPC has points that reflect their bodily
