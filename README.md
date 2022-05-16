@@ -8,16 +8,18 @@
 * Third Person
 
 ## Characteristics
-* The game have a life system based on hearts. If the numbers of hearts
-  is 0 (zero), everything (inclusive the save) is permanently lost.
-* The life and the mana are the same.
-* The dark spells spent the maximum percentage of life. The more strong
+* The game have a life system based on vitality and hearts.
+* The vitality regenerates automatically over time.
+* If the vitality is 0 (zero), one heart is lost.
+* If the numbers of hearts is 0 (zero), everything (inclusive the save) is permanently lost.
+* It's possible destroy one heart to teleport the last saved position.
+* The dark spells spent the maximum percentage of vitality. The more strong
   dark spells, those spent hearts.
-* Places react to the player bonds.
 * It is possibly to invade the worlds of other players, but is not possibly
   interact with the items that world.
-* It is possibly invoke a friend to your world, but is cannot interact with the
-  items that world.
+* It is possibly invoke a friend to your world, but he cannot interact with
+  items from that world.
+* Places react to the player bonds.
 * NPCs react to player bonds.
 * Creatures react to player bonds.
 * The most of the world dimensions are dynamically generated (infinity world).
@@ -27,23 +29,23 @@
 * Each dimension are finite, but very bigger.
 * There are portals that can used to access online dimensions. That dimensions
   are fixed and is multiplayer.
-* The first dimension is fixed and exists a portal to access the main oline
+* The first dimension is fixed and there is a portal to access the main online
   dimension.
 * The items, creatures and dimensions are dynamically generated.
 * There are fixed and dynamic NPCs with different rarity and their locations
-  and roles can be shuffled.
+  and roles are shuffled.
 * There are coliseums where hearts are lost to death, but the winner gains
   the loser's items.
 * There are divine items (extremely strong and rare) that need sacrifices (except
-  if the character has the "Friend os the Gods" bond) to be able to have.
-  Furthermore, is necessarily to have the needed attributes to be ably to equipe
+  if the character has the "Friend of the Gods" bond) to be able to have.
+  Furthermore, it is necessarily to have the needed attributes to be ably to equipe
   (not necessarily can be use). Maybe it is possibly to equipe a divine items
-  without the necessary attribute, but the debuffs must be very high.
+  without the necessary attribute, but the debuffs are very high.
 * The quantity of divine items is very limited.
-* If the player try to take a divine item, but he is not strong enough, the
-  item will to vanish and will back to game (probably in other location).
+* If the player try to take a divine item, but he is not strong enough to make the
+  sacrifice, the item will to vanish and will back to game (probably in other location).
 * The divine items will the power equated to a rare item if the owner does not
-  activate.
+  activate the item.
 * If the player try to activate a divine item without the necessary power,
   the player will lose his all hearts, except 1 (one), and the divine item
   will to vanish and will back to game (probably in a different location than
@@ -61,7 +63,7 @@
 * There are items that support divine items (show needed attributes; serve as
   partial sacrifice; show players that have a divine item equipped; show
   players that are the bonds "Friend of the gods", etc.).
-* In the war servers not exists safe areas. Dying spends hearts in
+* There are no safe areas on war servers. Dying spends hearts in
   percentage (10%).
 * Anyone with the "Friend of the gods" bond can steal a divinely equipped item,
   even in safe zones, unless the owner has the "Friend of the gods" bond,
@@ -77,18 +79,18 @@
 * The less limited quantity items there are in the game, the harder it will be
   for it to appear.
 * The triumphal entry can be used for whoever has an item equipped above the 
-  epic. If done in an online dimension, all players in that dimension receive 
+  legendary. If done in an online dimension, all players in that dimension receive 
   notification that someone has made a triumphant entry, showing what the item
   was. The notified player can be teleported to the place.
   (That can be used to attract enemy players and start a war).
-* On the online servers, players can team up to start a war.
+* On the online servers, players carn team up to stat a war.
 * Wars can only take place in specific places in the dimension.
-* In these peaceful places there may be bars with televisions where you can 
+* In peaceful places there may be bars with televisions where you can 
   watch, in real time, live wars or championships with other players.
 * World championships take place outside the dimensions, where players compete 
   against each other in a year-long standings to find out who is the champion.
 * The dimensions are the only places players can increase their power.
-* The epic and divine items cannot be used on championships.
+* The legendary and divine items cannot be used on championships.
 * When interacting with another NPC, there are different options to choose from
   (depending on what the NPCs role is). Every action choice usually has
   irreversible consequences.
@@ -102,21 +104,22 @@
 * The gods fear each other. This prevents them from acting more firmly on their
   goals. Because of this, they need to use humans as a means to achieve their
   goals.
-* The gods' goals can be fulfilled by their chosen ones in the infinite world
+* The god's goals can be fulfilled by their chosen ones in the infinite world
   (dynamically generated offline dimensions). These goals are achieved through
   very difficult missions, but with many rewards.
 * Being chosen by a god is stupidly difficult.
 
 ## System bonds:
   * **Active bonds:** It is necessary choose a limited quantity to use.
-  * **Passive bonds:** They are always active. 
-### Passive Titles:
+  * **Passive bonds:** They are always active.
+### Passive bonds:
 * Worthy of the gods.
 * Worthy of the god ...
 * Unworthy of the gods.
 * Unworthy of the god ...
 * Friend of the gods.
 * Friend of the god ...
+* Unfriendly of the god ...
 * Chosen by... (a god)
 * ...
 
@@ -132,12 +135,11 @@
 * ...
 
 ## Attributes
-* Vitality (Health/Mana)
+* Vitality (Health and Mana)
 * Strength
 * Dexterity
 * Stamina
 * Weight
-* Endurance
 * Speed
 * Intelligence
 * Fly (speed)
@@ -145,6 +147,7 @@
 * Fly (altitude)
 * Swim
 * Breath
+* Endurance
 * Resistance (physics)
 * Resistance (magic damage)
 * Resistance (fire)
