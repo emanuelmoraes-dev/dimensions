@@ -1,92 +1,102 @@
-use crate::ports::models::subjects::{Attr, AttrType, Subject, Player, Npc, NpcRole};
+use crate::ports::models::subjects::{SubjectAttr, SubjectAttrType, Inventory, Subject, Player, Npc, NpcRole};
 
-const DEFAULT_POINTS: i64 = 100;
-const DEFAULT_ABSORB: i64 = 10;
+const DEFAULT_POINTS: i32 = 100;
+const DEFAULT_ABSORB: i32 = 10;
+const DEFAULT_HEARTS: u32 = 1000;
+const DEFAULT_INVENTORY_CAPACITY: u32 = 50;
 
-fn new_attr(atype: AttrType, title: &'static str, description: &'static str) -> Attr {
-    Attr { atype, title, description, points: DEFAULT_POINTS, absorb: DEFAULT_ABSORB }
+fn new_attr(atype: SubjectAttrType, title: &'static str, description: &'static str) -> SubjectAttr {
+    SubjectAttr { atype, title, description, points: DEFAULT_POINTS, absorb: DEFAULT_ABSORB }
 }
 
-fn new_subject() -> Subject {
-    Subject { attrs: [
+fn new_attrs() -> [SubjectAttr; 20] {
+    [
         new_attr(
-            AttrType::Vitality,
+            SubjectAttrType::Vitality,
             "Vitality",
             "Vitality"),
         new_attr(
-            AttrType::Strength,
+            SubjectAttrType::Strength,
             "Strength",
             "Strength"),
         new_attr(
-            AttrType::Dexterity,
+            SubjectAttrType::Dexterity,
             "Dexterity",
             "Dexterity"),
         new_attr(
-            AttrType::Stamina,
+            SubjectAttrType::Stamina,
             "Stamina",
             "Stamina"),
         new_attr(
-            AttrType::Weight,
+            SubjectAttrType::Weight,
             "Weight",
             "Weight"),
         new_attr(
-            AttrType::Speed,
+            SubjectAttrType::Speed,
             "Speed",
             "Speed"),
         new_attr(
-            AttrType::Intelligence,
+            SubjectAttrType::Intelligence,
             "Intelligence",
             "Intelligence"),
-        new_attr(AttrType::FlySpeed,
+        new_attr(SubjectAttrType::FlySpeed,
             "Fly (speed)",
             "Fly (speed)"),
-        new_attr(AttrType::FlyDuration,
+        new_attr(SubjectAttrType::FlyDuration,
             "Fly (duration)",
             "Fly (duration)"),
-        new_attr(AttrType::FlyAltitude,
+        new_attr(SubjectAttrType::FlyAltitude,
             "Fly (altitude)",
             "Fly (altitude)"),
         new_attr(
-            AttrType::Swim,
+            SubjectAttrType::Swim,
             "Swim",
             "Swim"),
         new_attr(
-            AttrType::Breath,
+            SubjectAttrType::Breath,
             "Breath",
             "Breath"),
         new_attr(
-            AttrType::Endurance,
+            SubjectAttrType::Endurance,
             "Endurance",
             "Endurance"),
         new_attr(
-            AttrType::ResistancePhysics,
+            SubjectAttrType::ResistancePhysics,
             "Resistance (physics)",
             "Resistance (physics)"),
         new_attr(
-            AttrType::ResistanceMagic,
+            SubjectAttrType::ResistanceMagic,
             "Resistance (magic)",
             "Resistance (magic)"),
         new_attr(
-            AttrType::ResistanceFire,
+            SubjectAttrType::ResistanceFire,
             "Resistance (fire)",
             "Resistance (fire)"),
         new_attr(
-            AttrType::ResistanceWater,
+            SubjectAttrType::ResistanceWater,
             "Resistance (water)",
             "Resistance (water)"),
         new_attr(
-            AttrType::ResistanceElectricity,
+            SubjectAttrType::ResistanceElectricity,
             "Resistance (electricity)",
             "Resistance (electricity)"),
         new_attr(
-            AttrType::ResistanceAir,
+            SubjectAttrType::ResistanceAir,
             "Resistance (air)",
             "Resistance (air)"),
         new_attr(
-            AttrType::Luck,
+            SubjectAttrType::Luck,
             "Luck",
             "Luck")
-    ]}
+    ]
+}
+
+fn new_inventory() -> Inventory {
+    Inventory { capacity: DEFAULT_INVENTORY_CAPACITY, itens: Vec::new() }
+}
+
+fn new_subject() -> Subject {
+    Subject { inventory: new_inventory(), attrs: new_attrs() }
 }
 
 pub trait PlayerCreator {
@@ -98,17 +108,18 @@ impl PlayerCreator for Player {
         Player {
             subject: new_subject(),
             nickname,
-            description
+            description,
+            hearts: DEFAULT_HEARTS
         }
     }
 }
 
-pub trait NpcCreator {
-    fn new(name: String, description: String, roles: Vec<NpcRole>) -> Npc;
+pub trait NpcCreator<R: NpcRole> {
+    fn new(name: String, description: String, roles: Vec<R>) -> Npc<R>;
 }
 
-impl NpcCreator for Npc {
-    fn new(name: String, description: String, roles: Vec<NpcRole>) -> Npc {
+impl<R: NpcRole> NpcCreator<R> for Npc<R> {
+    fn new(name: String, description: String, roles: Vec<R>) -> Npc<R> {
         Npc {
             subject: new_subject(),
             roles,

@@ -108,6 +108,13 @@
   (dynamically generated offline dimensions). These goals are achieved through
   very difficult missions, but with many rewards.
 * Being chosen by a god is stupidly difficult.
+* The more the item is used the "Endurance" attribute is reduced.
+* If the "Endurance" item attribute is zero the item is broken.
+* To fix a broken item it is necessary to find a correct item and give it to
+  a correct NPC.
+* Each item attribute has both the damage points and the requirement points.
+  The higher is the damage points, the more damage the item does. The higher is the requirement points, the more points the subject needs to have to use the
+  item.
 
 ## System bonds:
   * **Active bonds:** It is necessary choose a limited quantity to use.
@@ -132,9 +139,10 @@
   rarity of the item. It is possible to increase the percentage) of the item's
   chance marked be invoked.
 * Generates hearts.
+* Fix broken itens.
 * ...
 
-## Attributes
+## Player's and NPC's Attributes
 * Vitality (Health and Mana)
 * Strength
 * Dexterity
@@ -154,6 +162,19 @@
 * Resistance (water)
 * Resistance (electricity)
 * Resistance (air)
+* Luck
+
+## Itens Attributes
+* Strength
+* Dexterity
+* Weight
+* Intelligence
+* Fly (speed)
+* Fly (duration)
+* Fly (altitude)
+* Swim
+* Breath
+* Endurance
 * Luck
 
 ## Personality Points

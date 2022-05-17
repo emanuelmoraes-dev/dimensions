@@ -38,5 +38,5 @@ pub fn run() -> Result<(), io::Error> {
     show_character(&player);
     println!("Done! press any key to quit...");
     io::stdin().read_line(&mut any)?;
-    return Ok(());
+    Ok(())
 }

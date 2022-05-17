@@ -1,4 +1,4 @@
-[*.{js,jsx,ts,tsx,json}]
+[*.{rs}]
 trim_trailing_whitespace = true
 end_of_line=lf
 indent_style = space

@@ -1,11 +1,12 @@
-use crate::ports::models::subjects::{Attr, Player, Npc};
+use crate::ports::models::subjects::{SubjectAttr, Player, Npc, NpcRole};
+use crate::ports::models::itens::{ItemAttr, Item};
 
 pub trait Describable {
     fn get_title(&self) -> &str;
     fn get_description(&self) -> &str;
 }
 
-impl Describable for Attr {
+impl Describable for SubjectAttr {
     fn get_title(&self) -> &str {
         &self.title
     }
@@ -22,11 +23,29 @@ impl Describable for Player {
         &self.description
     }
 }
-impl Describable for Npc {
+impl<R: NpcRole> Describable for Npc<R> {
     fn get_title(&self) -> &str {
         &self.name
     }
     fn get_description(&self) -> &str {
         &self.description
+    }
+}
+
+impl Describable for ItemAttr {
+    fn get_title(&self) -> &str {
+        self.title
+    }
+    fn get_description(&self) -> &str {
+        self.description
+    }
+}
+
+impl Describable for Item {
+    fn get_title(&self) -> &str {
+        self.title
+    }
+    fn get_description(&self) -> &str {
+        self.description
     }
 }
