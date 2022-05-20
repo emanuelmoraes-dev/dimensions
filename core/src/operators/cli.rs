@@ -1,5 +1,4 @@
 use crate::scenarios::base::creators::*;
-use crate::scenarios::base::describable::*;
 use crate::ports::models::subjects::Player;
 
 use std::io;
@@ -13,16 +12,16 @@ fn create_character() -> Result<Player, io::Error> {
     println!("Inform one description (can be empty): ");
     io::stdin().read_line(&mut description)?;
 
-    return Ok(Player::new(nickname, description));
+    return Ok(Player::create_player(nickname, description));
 }
 
 fn show_character(player: &Player) {
-    print!("Nickname: {}", player.get_title());
-    print!("Description: {}", player.get_description());
+    print!("Nickname: {}", player.nickname);
+    print!("Description: {}", player.description);
     println!("Attributes:");
 
     for attr in &player.subject.attrs {
-        println!("    {}(points={}, absorb={})", attr.title, attr.points, attr.absorb);
+        println!("    {} [points={}, absorb={}]", attr.title, attr.points, attr.absorb);
         println!("        {}", attr.description);
     }
 }
