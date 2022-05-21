@@ -1,6 +1,5 @@
 use crate::ports::models::subjects::{SubjectAttr, SubjectAttrType, Inventory, Subject, Player, Npc};
 use crate::ports::traits::game::TGame;
-
 use super::config::Config;
 use super::config::i18n::I18nSubjectAttr;
 use super::roles::NpcRole;

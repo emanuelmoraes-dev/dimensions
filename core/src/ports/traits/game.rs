@@ -1,5 +1,4 @@
 use crate::ports::models::subjects::{Player, Npc};
-
 use super::role::TNpcRole;
 
 pub trait TGame<Role: TNpcRole> {
