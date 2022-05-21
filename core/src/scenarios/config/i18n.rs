@@ -3,12 +3,6 @@ pub struct I18nSubjectAttr {
     pub description: &'static str
 }
 
-impl I18nSubjectAttr {
-    fn new(title: &'static str, description: &'static str) -> I18nSubjectAttr {
-        I18nSubjectAttr { title, description }
-    }
-}
-
 pub struct I18nSubjectAttrs {
     pub vitality: I18nSubjectAttr,
     pub strength: I18nSubjectAttr,
@@ -32,71 +26,79 @@ pub struct I18nSubjectAttrs {
     pub luck: I18nSubjectAttr
 }
 
+impl I18nSubjectAttrs {
+    fn new() -> Self {
+        Self {
+            vitality: I18nSubjectAttr{
+                title: "Vitality",
+                description: "Vitality"},
+            strength: I18nSubjectAttr{
+                title: "Strength",
+                description: "Strength"},
+            dexterity: I18nSubjectAttr{
+                title: "Dexterity",
+                description: "Dexterity"},
+            stamina: I18nSubjectAttr{
+                title: "Stamina",
+                description: "Stamina"},
+            weight: I18nSubjectAttr{
+                title: "Weight",
+                description: "Weight"},
+            speed: I18nSubjectAttr{
+                title: "Speed",
+                description: "Speed"},
+            intelligence: I18nSubjectAttr{
+                title: "Intelligence",
+                description: "Intelligence"},
+            fly_speed: I18nSubjectAttr{
+                title: "Fly (speed)",
+                description: "Fly (speed)"},
+            fly_duration: I18nSubjectAttr{
+                title: "Fly (duration)",
+                description: "Fly (duration)"},
+            fly_altitude: I18nSubjectAttr{
+                title: "Fly (altitude)",
+                description: "Fly (altitude)"},
+            swim: I18nSubjectAttr{
+                title: "Swim",
+                description: "Swim"},
+            breath: I18nSubjectAttr{
+                title: "Breath",
+                description: "Breath"},
+            endurance: I18nSubjectAttr{
+                title: "Endurance",
+                description: "Endurance"},
+            resistance_physics: I18nSubjectAttr{
+                title: "Resistance (physics)",
+                description: "Resistance (physics)"},
+            resistance_magic: I18nSubjectAttr{
+                title: "Resistance (magic)",
+                description: "Resistance (magic)"},
+            resistance_fire: I18nSubjectAttr{
+                title: "Resistance (fire)",
+                description: "Resistance (fire)"},
+            resistance_water: I18nSubjectAttr{
+                title: "Resistance (water)",
+                description: "Resistance (water)"},
+            resistance_electricity: I18nSubjectAttr{
+                title: "Resistance (electricity)",
+                description: "Resistance (electricity)"},
+            resistance_air: I18nSubjectAttr{
+                title: "Resistance (air)",
+                description: "Resistance (air)"},
+            luck: I18nSubjectAttr{
+                title: "Luck",
+                description: "Luck"}
+        }
+    }
+}
+
 pub struct I18n {
     pub subject_attrs: I18nSubjectAttrs
 }
 
-pub fn default_i18n() -> I18n {
-    I18n { subject_attrs: I18nSubjectAttrs {
-        vitality: I18nSubjectAttr::new(
-            "Vitality",
-            "Vitality"),
-        strength: I18nSubjectAttr::new(
-            "Strength",
-            "Strength"),
-        dexterity: I18nSubjectAttr::new(
-            "Dexterity",
-            "Dexterity"),
-        stamina: I18nSubjectAttr::new(
-            "Stamina",
-            "Stamina"),
-        weight: I18nSubjectAttr::new(
-            "Weight",
-            "Weight"),
-        speed: I18nSubjectAttr::new(
-            "Speed",
-            "Speed"),
-        intelligence: I18nSubjectAttr::new(
-            "Intelligence",
-            "Intelligence"),
-        fly_speed: I18nSubjectAttr::new(
-            "Fly (speed)",
-            "Fly (speed)"),
-        fly_duration: I18nSubjectAttr::new(
-            "Fly (duration)",
-            "Fly (duration)"),
-        fly_altitude: I18nSubjectAttr::new(
-            "Fly (altitude)",
-            "Fly (altitude)"),
-        swim: I18nSubjectAttr::new(
-            "Swim",
-            "Swim"),
-        breath: I18nSubjectAttr::new(
-            "Breath",
-            "Breath"),
-        endurance: I18nSubjectAttr::new(
-            "Endurance",
-            "Endurance"),
-        resistance_physics: I18nSubjectAttr::new(
-            "Resistance (physics)",
-            "Resistance (physics)"),
-        resistance_magic: I18nSubjectAttr::new(
-            "Resistance (magic)",
-            "Resistance (magic)"),
-        resistance_fire: I18nSubjectAttr::new(
-            "Resistance (fire)",
-            "Resistance (fire)"),
-        resistance_water: I18nSubjectAttr::new(
-            "Resistance (water)",
-            "Resistance (water)"),
-        resistance_electricity: I18nSubjectAttr::new(
-            "Resistance (electricity)",
-            "Resistance (electricity)"),
-        resistance_air: I18nSubjectAttr::new(
-            "Resistance (air)",
-            "Resistance (air)"),
-        luck: I18nSubjectAttr::new(
-            "Luck",
-            "Luck")
-    }}
+impl I18n {
+    pub fn new() -> Self {
+        Self { subject_attrs: I18nSubjectAttrs::new() }
+    }
 }

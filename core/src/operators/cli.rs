@@ -1,9 +1,10 @@
-use crate::scenarios::base::creators::*;
 use crate::ports::models::subjects::Player;
+use crate::ports::traits::game::TGame;
+use crate::scenarios::game::Game;
 
 use std::io;
 
-fn create_character() -> Result<Player, io::Error> {
+fn create_character(game: &Game) -> Result<Player, io::Error> {
     let mut nickname = String::new();
     println!("Inform your nickname: ");
     io::stdin().read_line(&mut nickname)?;
@@ -12,7 +13,7 @@ fn create_character() -> Result<Player, io::Error> {
     println!("Inform one description (can be empty): ");
     io::stdin().read_line(&mut description)?;
 
-    return Ok(Player::create_player(nickname, description));
+    return Ok(game.create_player(nickname, description));
 }
 
 fn show_character(player: &Player) {
@@ -27,8 +28,10 @@ fn show_character(player: &Player) {
 }
 
 pub fn run() -> Result<(), io::Error> {
+    let game = Game::new();
+
     println!("Wellcome to Dimensions!");
-    let player = create_character()?;
+    let player = create_character(&game)?;
     println!("Character created! Press any key to show your informations...");
 
     let mut any = String::new();
@@ -37,5 +40,6 @@ pub fn run() -> Result<(), io::Error> {
     show_character(&player);
     println!("Done! press any key to quit...");
     io::stdin().read_line(&mut any)?;
+
     Ok(())
 }

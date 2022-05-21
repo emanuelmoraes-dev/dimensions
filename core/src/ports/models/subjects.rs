@@ -1,3 +1,5 @@
+use crate::ports::traits::role::TNpcRole;
+
 use super::itens::Item;
 
 pub enum SubjectAttrType {
@@ -38,23 +40,17 @@ pub struct Inventory {
 
 pub struct Subject {
     pub inventory: Inventory,
-    pub attrs: [SubjectAttr; 20]
+    pub attrs: [SubjectAttr; 20],
+    pub hearts: u32
 }
 
 pub struct Player {
     pub subject: Subject,
     pub nickname: String,
-    pub description: String,
-    pub hearts: u32
+    pub description: String
 }
 
-pub trait NpcRole {
-    fn get_id(&self) -> &str;
-    fn get_title(&self) -> &str;
-    fn get_description(&self) -> &str;
-}
-
-pub struct Npc<R: NpcRole> {
+pub struct Npc<R: TNpcRole> {
     pub subject: Subject,
     pub roles: Vec<R>,
     pub name: String,
