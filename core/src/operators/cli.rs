@@ -1,6 +1,6 @@
 use crate::ports::models::subjects::Player;
+use crate::act::game::Game;
 use crate::ports::traits::game::TGame;
-use crate::scenarios::game::Game;
 
 use std::io;
 
