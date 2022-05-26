@@ -1,0 +1,16 @@
+{
+  "name": "dimensions-ui",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "snowpack dev",
+    "build": "snowpack build"
+  },
+  "author": "Emanuel Moraes",
+  "license": "MIT",
+  "devDependencies": {
+    "snowpack": "^3.8.8"
+  }
+}
