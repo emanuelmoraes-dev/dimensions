@@ -18,6 +18,11 @@ pub struct InputRunner {
 
 #[wasm_bindgen]
 impl InputRunner {
+    #[wasm_bindgen(constructor)]
+    pub fn new(nickname: String, description: String) -> Self {
+        Self { nickname, description }
+    }
+
     #[wasm_bindgen(getter)]
     pub fn nickname(&self) -> String {
         self.nickname.clone()
