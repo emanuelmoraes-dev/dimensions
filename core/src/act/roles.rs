@@ -7,13 +7,13 @@ pub struct NpcRole {
 }
 
 impl TNpcRole for NpcRole {
-    fn get_id(&self) -> &str {
+    fn id(&self) -> &str {
         self.id
     }
-    fn get_title(&self) -> &str {
+    fn title(&self) -> &str {
         self.title
     }
-    fn get_description(&self) -> &str {
+    fn description(&self) -> &str {
         self.description
     }
 }
