@@ -5,12 +5,13 @@ use super::config::i18n::I18nSubjectAttr;
 use super::roles::NpcRole;
 
 pub struct Game {
-    pub config: Config
+    config: Config,
+    pub player: Option<Player>
 }
 
 impl Game {
-    pub fn new() -> Self {
-        Self { config: Config::new() }
+    pub fn new(config: Config) -> Self {
+        Self { config, player: None }
     }
 }
 
