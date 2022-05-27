@@ -1,5 +1,6 @@
-import init, { run, InputRunner } from '../../core/pkg/core.js'
+import init, { Dimensions, run } from '../../core/pkg/core.js'
 
 await init()
 
-run(new InputRunner('Nickname', 'Description'))
+const game = new Dimensions('Nickname', 'Description')
+run(game)

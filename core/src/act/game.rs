@@ -5,13 +5,12 @@ use super::config::i18n::I18nSubjectAttr;
 use super::roles::NpcRole;
 
 pub struct Game {
-    config: Config,
-    pub player: Option<Player>
+    pub config: Config
 }
 
 impl Game {
-    pub fn new(config: Config) -> Self {
-        Self { config, player: None }
+    pub fn new() -> Self {
+        Self { config: Config::new() }
     }
 }
 
@@ -30,6 +29,21 @@ impl TGame<NpcRole> for Game {
             name,
             description
         }
+    }
+}
+
+fn new_subject(config: &Config) -> Subject {
+    Subject {
+        hearts: config.default.hearts,
+        inventory: new_inventory(config),
+        attrs: new_attrs(config)
+    }
+}
+
+fn new_inventory(config: &Config) -> Inventory {
+    Inventory {
+        capacity: config.default.inventory_capacity,
+        itens: Vec::new()
     }
 }
 
@@ -67,19 +81,4 @@ fn new_attrs(config: &Config) -> [SubjectAttr; 20] {
         new_attr(config, SubjectAttrType::ResistanceAir, &i18n.resistance_air),
         new_attr(config, SubjectAttrType::Luck, &i18n.luck)
     ]
-}
-
-fn new_inventory(config: &Config) -> Inventory {
-    Inventory {
-        capacity: config.default.inventory_capacity,
-        itens: Vec::new()
-    }
-}
-
-fn new_subject(config: &Config) -> Subject {
-    Subject {
-        hearts: config.default.hearts,
-        inventory: new_inventory(config),
-        attrs: new_attrs(config)
-    }
 }
