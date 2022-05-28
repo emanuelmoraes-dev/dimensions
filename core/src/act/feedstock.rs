@@ -1,23 +1,27 @@
-use crate::ports::traits::{t_id::TId, t_feedstock::TFeedstock};
+use crate::ports::traits::t_id::TId;
+use crate::ports::traits::t_feedstock::TFeedstock;
 
-use super::stock::Stock;
+use super::meta::Meta;
+use super::universe::Universe;
 
-pub struct Feedstock<'s, T: TId> {
+pub struct Feedstock<'m, T: TId> {
     value: T,
-    stock: &'s Stock<'s, T>
+    meta: &'m Meta<'m>,
+    def: Box<dyn Fn(&Meta, &Universe) -> u32>
 }
 
-impl<'s, T: TId> Feedstock<'s, T> {
-    pub fn new(value: T, stock: &'s Stock<'s, T>) -> Self {
-        Self { value, stock }
+impl<'m, T: TId> Feedstock<'m, T> {
+    pub fn new(value: T, meta: &'m Meta<'m>, def: Box<dyn Fn(&Meta, &Universe) -> u32>) -> Self {
+        Self { value, meta, def }
     }
 }
 
-impl<'s, T: TId> TFeedstock<T> for Feedstock<'s, T> {
+impl<'m, T: TId> TFeedstock<T, Universe> for Feedstock<'m, T> {
     fn value(&self) -> &T {
         &self.value
     }
-    fn probability(&self) -> u32 {
-        0 // TODO
+    fn probability<'u>(&self, universe: &'u Universe) -> u32 {
+        let def = &self.def;
+        def(self.meta, universe)
     }
 }

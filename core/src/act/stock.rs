@@ -5,17 +5,20 @@ use crate::ports::traits::t_id::TId;
 use crate::ports::traits::t_stock::TStock;
 
 use super::feedstock::Feedstock;
+use super::universe::Universe;
 
-pub struct Stock<'a, T: TId> {
-    itens: Vec<Feedstock<'a, T>>,
+pub struct Stock<'m, T: TId> {
+    itens: Vec<Feedstock<'m, T>>,
     map: HashMap<String, usize>
 }
 
-impl<'a, T: TId> Stock<'a, T> {
-    pub fn new(itens: Vec<Feedstock<'a, T>>) -> Self {
-        let mut instance = Self { itens, map: HashMap::new() };
-        instance.build_map(None);
-        instance
+impl<'m, T: TId> Stock<'m, T> {
+    pub fn new() -> Self {
+        Self { itens: Vec::new(), map: HashMap::new() }
+    }
+    pub fn set_values(&mut self, itens: Vec<Feedstock<'m, T>>) {
+        self.itens = itens;
+        self.build_map(None);
     }
     fn build_map(&mut self, item: Option<(usize, String)>) {
         if let Some((index, id)) = item {
@@ -29,11 +32,11 @@ impl<'a, T: TId> Stock<'a, T> {
     }
 }
 
-impl<'a, T: TId> TStock<'a, T, Feedstock<'a, T>> for Stock<'a, T> {
-    fn itens(&self) -> &[Feedstock<'a, T>] {
+impl<'m, T: TId> TStock<T, Universe, Feedstock<'m, T>> for Stock<'m, T> {
+    fn itens(&self) -> &[Feedstock<'m, T>] {
         &self.itens[..]
     }
-    fn add(&mut self, item: Feedstock<'a, T>) {
+    fn add(&mut self, item: Feedstock<'m, T>) {
         let id = item.value().id().to_string();
         let index = self.itens.len();
         self.itens.push(item);

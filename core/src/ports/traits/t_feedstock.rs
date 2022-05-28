@@ -1,6 +1,6 @@
 use super::t_id::TId;
 
-pub trait TFeedstock<T: TId> {
+pub trait TFeedstock<T: TId, U> {
     fn value(&self) -> &T;
-    fn probability(&self) -> u32;
+    fn probability<'u>(&self, universe: &'u U) -> u32;
 }
