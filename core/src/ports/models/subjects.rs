@@ -49,9 +49,9 @@ pub struct Player {
     pub description: String
 }
 
-pub struct Npc<R: TNpcRole> {
+pub struct Npc {
     pub subject: Subject,
-    pub roles: Vec<R>,
+    pub roles: Vec<Box<dyn TNpcRole>>,
     pub name: String,
     pub description: String
 }

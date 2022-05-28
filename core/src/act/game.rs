@@ -1,8 +1,8 @@
 use crate::ports::models::subjects::{SubjectAttr, SubjectAttrType, Inventory, Subject, Player, Npc};
 use crate::ports::traits::game::TGame;
+use crate::ports::traits::role::TNpcRole;
 use super::config::Config;
 use super::config::i18n::I18nSubjectAttr;
-use super::roles::NpcRole;
 
 pub struct Game {
     pub config: Config
@@ -14,7 +14,7 @@ impl Game {
     }
 }
 
-impl TGame<NpcRole> for Game {
+impl TGame for Game {
     fn create_player(&self, nickname: String, description: String) -> Player {
         Player {
             subject: new_subject(&self.config),
@@ -22,7 +22,7 @@ impl TGame<NpcRole> for Game {
             description
         }
     }
-    fn create_npc(&self, name: String, description: String, roles: Vec<NpcRole>) -> Npc<NpcRole> {
+    fn create_npc(&self, name: String, description: String, roles: Vec<Box<dyn TNpcRole>>) -> Npc {
         Npc {
             subject: new_subject(&self.config),
             roles,
