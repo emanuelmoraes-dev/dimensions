@@ -4,4 +4,4 @@ pub mod roles;
 pub mod feedstock;
 pub mod stock;
 pub mod location;
-pub mod maps;
+pub mod map;
