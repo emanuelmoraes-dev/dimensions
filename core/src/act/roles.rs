@@ -1,4 +1,4 @@
-use crate::ports::traits::role::TNpcRole;
+use crate::ports::traits::{t_role::TNpcRole, t_id::TId};
 
 pub struct NpcRole {
     pub id: &'static str,
@@ -6,10 +6,13 @@ pub struct NpcRole {
     pub description: &'static str
 }
 
-impl TNpcRole for NpcRole {
+impl TId for NpcRole {
     fn id(&self) -> &str {
         self.id
     }
+}
+
+impl TNpcRole for NpcRole {
     fn title(&self) -> &str {
         self.title
     }

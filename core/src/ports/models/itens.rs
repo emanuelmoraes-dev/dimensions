@@ -1,3 +1,5 @@
+use crate::ports::traits::t_id::TId;
+
 pub enum ItemAttrType {
     Strength,
     Dexterity,
@@ -25,4 +27,10 @@ pub struct Item {
     pub title: &'static str,
     pub description: &'static str,
     pub attrs: Vec<ItemAttr>
+}
+
+impl TId for Item {
+    fn id(&self) -> &str {
+        self.id
+    }
 }

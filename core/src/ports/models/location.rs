@@ -1,4 +1,4 @@
-use crate::ports::traits::map::TMap;
+use crate::ports::traits::t_map::TMap;
 
 pub enum Location {
     Wall,

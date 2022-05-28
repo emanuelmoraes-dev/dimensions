@@ -1,5 +1,6 @@
-pub trait TNpcRole {
-    fn id(&self) -> &str;
+use super::t_id::TId;
+
+pub trait TNpcRole: TId {
     fn title(&self) -> &str;
     fn description(&self) -> &str;
 }

@@ -2,7 +2,7 @@ use wasm_bindgen::prelude::*;
 
 use crate::act::game::Game;
 use crate::ports::models::subjects::Player;
-use crate::ports::traits::game::TGame;
+use crate::ports::traits::t_game::TGame;
 
 #[wasm_bindgen]
 pub struct Dimensions {
