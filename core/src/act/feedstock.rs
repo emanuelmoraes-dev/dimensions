@@ -1,3 +1,5 @@
+pub mod functional;
+
 use crate::ports::traits::t_id::TId;
 use crate::ports::traits::t_feedstock::TFeedstock;
 
