@@ -1,6 +1,8 @@
 use crate::ports::models::location::Location;
 
-pub trait TMap {
+use super::t_id::TOptId;
+
+pub trait TMap: TOptId {
     fn move_to(&self, x: usize, y: usize) -> Option<&Location>;
 }
 

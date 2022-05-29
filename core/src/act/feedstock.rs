@@ -16,6 +16,12 @@ impl<'m, T: TId> Feedstock<'m, T> {
     }
 }
 
+impl<'m, ID: TId> TId for Feedstock<'m, ID> {
+    fn id(&self) -> &str {
+        self.value.id()
+    }
+}
+
 impl<'m, T: TId> TFeedstock<T, Universe> for Feedstock<'m, T> {
     fn value(&self) -> &T {
         &self.value

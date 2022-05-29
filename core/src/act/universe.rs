@@ -1,5 +1,5 @@
-use super::map::Map;
+use super::{map::Map, stock::Stock};
 
 pub struct Universe {
-    pub maps: Vec<Map>
+    pub maps: Stock<Map>
 }
