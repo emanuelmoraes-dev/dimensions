@@ -4,6 +4,18 @@ use crate::ports::traits::t_location::TLocation;
 
 use super::dimension::Dimension;
 
+impl TId for LocationType {
+    fn id(&self) -> &str {
+        match self {
+            LocationType::Wall => "Location(Wall)",
+            LocationType::Ground => "Location(Ground)",
+            LocationType::Gram => "Location(Gram)",
+            LocationType::River => "Location(River)",
+            LocationType::Cave => "Location(Cave)",
+        }
+    }
+}
+
 pub struct Location {
     pub ltype: LocationType,
     pub teleport_to: Option<Dimension>,
@@ -11,13 +23,7 @@ pub struct Location {
 
 impl TId for Location {
     fn id(&self) -> &str {
-        match self.ltype {
-            LocationType::Wall => "Location(Wall)",
-            LocationType::Ground => "Location(Ground)",
-            LocationType::Gram => "Location(Gram)",
-            LocationType::River => "Location(River)",
-            LocationType::Cave => "Location(Cave)",
-        }
+        self.ltype.id()
     }
 }
 

@@ -9,7 +9,7 @@ use super::universe::Universe;
 #[macro_export]
 macro_rules! fsdef {
     () => {
-        Box<dyn Fn(&crate::act::meta::Meta, &crate::act::universe::Universe) -> u32>
+        Box<dyn Fn(usize, usize, &crate::act::meta::Meta, &crate::act::universe::Universe) -> u32>
     };
 }
 
@@ -36,8 +36,8 @@ impl<'m, T: TId> TFeedstock<T, Universe> for Feedstock<'m, T> {
     fn value(&self) -> &T {
         &self.value
     }
-    fn probability<'u>(&self, universe: &'u Universe) -> u32 {
+    fn probability<'u>(&self, x: usize, y: usize, universe: &'u Universe) -> u32 {
         let def = &self.def;
-        def(self.meta, universe)
+        def(x, y, self.meta, universe)
     }
 }
