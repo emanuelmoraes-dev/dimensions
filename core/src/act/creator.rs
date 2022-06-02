@@ -3,14 +3,14 @@ use super::config::Config;
 use crate::ports::models::subjects::{
     Inventory, Npc, Player, Subject, SubjectAttr, SubjectAttrType,
 };
-use crate::ports::traits::t_game::TGame;
+use crate::ports::traits::t_creator::TCreator;
 use crate::ports::traits::t_role::TNpcRole;
 
-pub struct Game {
+pub struct Creator {
     pub config: Config,
 }
 
-impl Game {
+impl Creator {
     pub fn new() -> Self {
         Self {
             config: Config::new(),
@@ -18,7 +18,7 @@ impl Game {
     }
 }
 
-impl TGame for Game {
+impl TCreator for Creator {
     fn create_player(&self, nickname: String, description: String) -> Player {
         Player {
             subject: new_subject(&self.config),

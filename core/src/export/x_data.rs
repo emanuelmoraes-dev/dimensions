@@ -1,13 +1,13 @@
 use wasm_bindgen::prelude::*;
 
-use crate::act::game::Game;
+use crate::act::creator::Creator;
 use crate::ports::models::subjects::Player;
-use crate::ports::traits::t_game::TGame;
+use crate::ports::traits::t_creator::TCreator;
 
 #[wasm_bindgen]
 pub struct Dimensions {
     #[wasm_bindgen(skip)]
-    pub game: Game,
+    pub creator: Creator,
 
     #[wasm_bindgen(skip)]
     pub player: Player,
@@ -17,8 +17,8 @@ pub struct Dimensions {
 impl Dimensions {
     #[wasm_bindgen(constructor)]
     pub fn new(nickname: String, description: String) -> Self {
-        let game = Game::new();
-        let player = game.create_player(nickname, description);
-        Self { game, player }
+        let creator = Creator::new();
+        let player = creator.create_player(nickname, description);
+        Self { creator, player }
     }
 }

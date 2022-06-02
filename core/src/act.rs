@@ -1,7 +1,7 @@
 pub mod config;
+pub mod creator;
 pub mod dimension;
 pub mod feedstock;
-pub mod game;
 pub mod location;
 pub mod meta;
 pub mod roles;
