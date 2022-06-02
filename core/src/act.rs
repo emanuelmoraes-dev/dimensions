@@ -4,6 +4,6 @@ pub mod roles;
 pub mod feedstock;
 pub mod stock;
 pub mod location;
-pub mod map;
+pub mod dimension;
 pub mod meta;
 pub mod universe;

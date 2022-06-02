@@ -1,8 +1,8 @@
-use crate::ports::traits::t_map::TMap;
+use crate::ports::traits::t_dimension::TDimension;
 
 pub enum Location {
     Wall,
     Ground,
     River,
-    Cave(Box<dyn TMap>)
+    Cave(Box<dyn TDimension>)
 }
