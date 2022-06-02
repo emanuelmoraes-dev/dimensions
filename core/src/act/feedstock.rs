@@ -14,14 +14,15 @@ macro_rules! fsdef {
 }
 
 pub struct Feedstock<'m, T: TId> {
+    pub require: Vec<String>,
     value: T,
     meta: &'m Meta<'m>,
     def: fsdef![],
 }
 
 impl<'m, T: TId> Feedstock<'m, T> {
-    pub fn new(value: T, meta: &'m Meta<'m>, def: fsdef![]) -> Self {
-        Self { value, meta, def }
+    pub fn new(require: Vec<String>, value: T, meta: &'m Meta<'m>, def: fsdef![]) -> Self {
+        Self { require, value, meta, def }
     }
 }
 
