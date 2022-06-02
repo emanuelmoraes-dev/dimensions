@@ -31,6 +31,12 @@ pub struct Location {
     pub teleport_to: Option<Dimension>,
 }
 
+impl Location {
+    pub fn new(ltype: LocationType, teleport_to: Option<Dimension>) -> Self {
+        Self { ltype, teleport_to }
+    }
+}
+
 impl TId for Location {
     fn id(&self) -> &str {
         self.ltype.id()
