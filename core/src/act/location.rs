@@ -6,7 +6,7 @@ use super::dimension::Dimension;
 
 pub struct Location {
     pub ltype: LocationType,
-    pub teleport_to: Option<Dimension>
+    pub teleport_to: Option<Dimension>,
 }
 
 impl TId for Location {
@@ -16,7 +16,7 @@ impl TId for Location {
             LocationType::Ground => "Location(Ground)",
             LocationType::Gram => "Location(Gram)",
             LocationType::River => "Location(River)",
-            LocationType::Cave => "Location(Cave)"
+            LocationType::Cave => "Location(Cave)",
         }
     }
 }

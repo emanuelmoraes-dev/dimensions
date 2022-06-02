@@ -1,5 +1,5 @@
-use crate::ports::traits::t_role::TNpcRole;
 use super::itens::Item;
+use crate::ports::traits::t_role::TNpcRole;
 
 pub enum SubjectAttrType {
     Vitality,
@@ -21,7 +21,7 @@ pub enum SubjectAttrType {
     ResistanceWater,
     ResistanceElectricity,
     ResistanceAir,
-    Luck
+    Luck,
 }
 
 pub struct SubjectAttr {
@@ -29,29 +29,29 @@ pub struct SubjectAttr {
     pub title: &'static str,
     pub description: &'static str,
     pub points: i32,
-    pub absorb: i32
+    pub absorb: i32,
 }
 
 pub struct Inventory {
     pub capacity: u32,
-    pub itens: Vec<Item>
+    pub itens: Vec<Item>,
 }
 
 pub struct Subject {
     pub inventory: Inventory,
     pub attrs: [SubjectAttr; 20],
-    pub hearts: u32
+    pub hearts: u32,
 }
 
 pub struct Player {
     pub subject: Subject,
     pub nickname: String,
-    pub description: String
+    pub description: String,
 }
 
 pub struct Npc {
     pub subject: Subject,
     pub roles: Vec<Box<dyn TNpcRole>>,
     pub name: String,
-    pub description: String
+    pub description: String,
 }

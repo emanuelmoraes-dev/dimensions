@@ -1,5 +1,5 @@
-use crate::ports::models::subjects::{Player, Npc};
 use super::t_role::TNpcRole;
+use crate::ports::models::subjects::{Npc, Player};
 
 pub trait TGame {
     fn create_player(&self, nickname: String, description: String) -> Player;

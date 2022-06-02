@@ -1,9 +1,9 @@
-use crate::ports::traits::{t_role::TNpcRole, t_id::TId};
+use crate::ports::traits::{t_id::TId, t_role::TNpcRole};
 
 pub struct NpcRole {
     pub id: &'static str,
     pub title: &'static str,
-    pub description: &'static str
+    pub description: &'static str,
 }
 
 impl TId for NpcRole {

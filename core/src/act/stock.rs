@@ -5,12 +5,15 @@ use crate::ports::traits::t_stock::TStock;
 
 pub struct Stock<T: TOptId> {
     itens: Vec<T>,
-    map: HashMap<String, usize>
+    map: HashMap<String, usize>,
 }
 
 impl<T: TOptId> Stock<T> {
     pub fn new() -> Self {
-        Self { itens: Vec::new(), map: HashMap::new() }
+        Self {
+            itens: Vec::new(),
+            map: HashMap::new(),
+        }
     }
     pub fn set_values(&mut self, itens: Vec<T>) {
         self.itens = itens;

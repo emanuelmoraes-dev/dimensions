@@ -11,7 +11,7 @@ pub enum ItemAttrType {
     Swim,
     Breath,
     Endurance,
-    Luck
+    Luck,
 }
 
 pub struct ItemAttr {
@@ -19,14 +19,14 @@ pub struct ItemAttr {
     pub title: &'static str,
     pub description: &'static str,
     pub damage: i32,
-    pub requirement: i32
+    pub requirement: i32,
 }
 
 pub struct Item {
     pub id: &'static str,
     pub title: &'static str,
     pub description: &'static str,
-    pub attrs: Vec<ItemAttr>
+    pub attrs: Vec<ItemAttr>,
 }
 
 impl TId for Item {

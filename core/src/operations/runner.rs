@@ -1,5 +1,5 @@
-use crate::ports::models::subjects::Player;
 use crate::js::console;
+use crate::ports::models::subjects::Player;
 
 pub fn run(player: &Player) {
     console::log("Wellcome to Dimensions!");
@@ -14,7 +14,10 @@ fn show_character(player: &Player) {
     console::log("Attributes:");
 
     for attr in &player.subject.attrs {
-        console::log(&format!("    {} [points={}, absorb={}]", attr.title, attr.points, attr.absorb));
+        console::log(&format!(
+            "    {} [points={}, absorb={}]",
+            attr.title, attr.points, attr.absorb
+        ));
         console::log(&format!("        {}", attr.description));
     }
 }

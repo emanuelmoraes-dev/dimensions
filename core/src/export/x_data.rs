@@ -10,7 +10,7 @@ pub struct Dimensions {
     pub game: Game,
 
     #[wasm_bindgen(skip)]
-    pub player: Player
+    pub player: Player,
 }
 
 #[wasm_bindgen]

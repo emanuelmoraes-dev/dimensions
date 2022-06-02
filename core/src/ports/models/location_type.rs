@@ -4,5 +4,5 @@ pub enum LocationType {
     Ground,
     Gram,
     River,
-    Cave
+    Cave,
 }

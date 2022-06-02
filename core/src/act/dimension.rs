@@ -1,11 +1,11 @@
-use crate::ports::traits::t_id::TOptId;
 use crate::ports::traits::t_dimension::TDimension;
+use crate::ports::traits::t_id::TOptId;
 
 use super::location::Location;
 
 pub struct Dimension {
     pub id: Option<&'static str>,
-    pub locations: Vec<Vec<Location>>
+    pub locations: Vec<Vec<Location>>,
 }
 
 impl TOptId for Dimension {
