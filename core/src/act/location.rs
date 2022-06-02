@@ -7,11 +7,21 @@ use super::dimension::Dimension;
 impl TId for LocationType {
     fn id(&self) -> &str {
         match self {
-            LocationType::Wall => "Location(Wall)",
             LocationType::Ground => "Location(Ground)",
-            LocationType::Gram => "Location(Gram)",
-            LocationType::River => "Location(River)",
             LocationType::Cave => "Location(Cave)",
+            LocationType::Wall {
+                quantity: _
+            } => "Location(Wall)",
+            LocationType::Gram {
+                quantity: _,
+                min_xratio: _,
+                max_xratio: _
+            } => "Location(Gram)",
+            LocationType::River {
+                quantity: _,
+                min_xratio: _,
+                max_xratio: _
+            } => "Location(River)",
         }
     }
 }
