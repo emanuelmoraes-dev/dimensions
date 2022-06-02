@@ -22,7 +22,12 @@ pub struct Feedstock<'m, T: TId> {
 
 impl<'m, T: TId> Feedstock<'m, T> {
     pub fn new(require: Vec<String>, value: T, meta: &'m Meta<'m>, def: fsdef![]) -> Self {
-        Self { require, value, meta, def }
+        Self {
+            require,
+            value,
+            meta,
+            def,
+        }
     }
 }
 

@@ -1,5 +1,5 @@
-use crate::ports::models::location::LocationType;
 use crate::ports::models::location::Location;
+use crate::ports::models::location::LocationType;
 use crate::ports::traits::t_id::TId;
 
 impl TId for LocationType {
@@ -7,18 +7,16 @@ impl TId for LocationType {
         match self {
             LocationType::Ground => "Location(Ground)",
             LocationType::Cave => "Location(Cave)",
-            LocationType::Wall {
-                quantity: _
-            } => "Location(Wall)",
+            LocationType::Wall { quantity: _ } => "Location(Wall)",
             LocationType::Gram {
                 quantity: _,
                 min_xratio: _,
-                max_xratio: _
+                max_xratio: _,
             } => "Location(Gram)",
             LocationType::River {
                 quantity: _,
                 min_xratio: _,
-                max_xratio: _
+                max_xratio: _,
             } => "Location(River)",
         }
     }
