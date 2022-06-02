@@ -1,7 +1,6 @@
+use crate::ports::models::location::Location;
 use crate::ports::traits::t_dimension::TDimension;
 use crate::ports::traits::t_id::TOptId;
-
-use super::location::Location;
 
 pub struct Dimension {
     pub id: Option<&'static str>,
@@ -14,11 +13,14 @@ impl TOptId for Dimension {
     }
 }
 
-impl TDimension<Location> for Dimension {
+impl TDimension for Dimension {
     fn move_to(&self, x: usize, y: usize) -> Option<&Location> {
         if let Some(locations) = self.locations.get(y) {
             return locations.get(x);
         }
         None
+    }
+    fn as_any(&self) -> &dyn std::any::Any {
+        self
     }
 }

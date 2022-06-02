@@ -1,8 +1,6 @@
-use crate::ports::models::location_type::LocationType;
+use crate::ports::models::location::LocationType;
+use crate::ports::models::location::Location;
 use crate::ports::traits::t_id::TId;
-use crate::ports::traits::t_location::TLocation;
-
-use super::dimension::Dimension;
 
 impl TId for LocationType {
     fn id(&self) -> &str {
@@ -26,25 +24,8 @@ impl TId for LocationType {
     }
 }
 
-pub struct Location {
-    pub ltype: LocationType,
-    pub teleport_to: Option<Dimension>,
-}
-
-impl Location {
-    pub fn new(ltype: LocationType, teleport_to: Option<Dimension>) -> Self {
-        Self { ltype, teleport_to }
-    }
-}
-
 impl TId for Location {
     fn id(&self) -> &str {
         self.ltype.id()
-    }
-}
-
-impl TLocation for Location {
-    fn ltype(&self) -> LocationType {
-        self.ltype
     }
 }
