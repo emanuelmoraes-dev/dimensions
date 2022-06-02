@@ -1,4 +1,4 @@
-use crate::ports::models::location_type::LocationType;
+use crate::ports::models::location::LocationType;
 
 use super::feedstock::Feedstock;
 use super::roles::NpcRole;
