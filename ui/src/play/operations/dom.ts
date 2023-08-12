@@ -1,5 +1,5 @@
-import { ICanvas, IElement } from 'play/ports/i-obj'
-import { IGame } from 'play/ports/i-game'
+import {ICanvas, IElement} from 'play/ports/i-obj'
+import {IGame} from 'play/ports/i-game'
 
 export default {
     append(...elements: IElement[]): void {

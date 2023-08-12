@@ -1,15 +1,15 @@
 import core from 'play/dimensions/core'
 import dom from 'play/operations/dom'
-import { X } from 'core/pkg/core'
-import { IGame } from 'play/ports/i-game'
-import { ICanvas } from 'play/ports/i-obj'
+import {X} from 'core/pkg/core'
+import {IGame} from 'play/ports/i-game'
+import {ICanvas} from 'play/ports/i-obj'
 
 export class Dimensions implements IGame {
-    width!: number;
-    height!: number;
-    canvas: ICanvas = dom.createCanvas(this.id);
+    width!: number
+    height!: number
+    canvas: ICanvas = dom.createCanvas(this.id)
 
-    private x!: X;
+    private x!: X
 
     constructor(
         public id: string,

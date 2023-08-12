@@ -1,4 +1,4 @@
-import init, { X, xrun } from 'core/pkg/core.js'
+import init, {X, xrun} from 'core/pkg/core.js'
 
 export default {
     async init(nickname: string, description: string): Promise<X> {

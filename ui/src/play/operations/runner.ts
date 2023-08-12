@@ -1,4 +1,4 @@
-import { IGame } from 'play/ports/i-game'
+import {IGame} from 'play/ports/i-game'
 import dom from 'play/operations/dom'
 
 export default {
