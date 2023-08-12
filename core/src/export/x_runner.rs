@@ -2,9 +2,9 @@ use wasm_bindgen::prelude::*;
 
 use crate::operations::runner;
 
-use super::x_data::Dimensions;
+use super::x_data::X;
 
 #[wasm_bindgen]
-pub fn run(dimensions: &Dimensions) {
-    runner::run(&dimensions.player);
+pub fn xrun(x: &X) {
+    runner::run(&x.player);
 }

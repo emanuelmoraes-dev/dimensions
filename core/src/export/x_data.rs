@@ -5,7 +5,7 @@ use crate::ports::models::subjects::Player;
 use crate::ports::traits::t_creator::TCreator;
 
 #[wasm_bindgen]
-pub struct Dimensions {
+pub struct X {
     #[wasm_bindgen(skip)]
     pub creator: Creator,
 
@@ -14,7 +14,7 @@ pub struct Dimensions {
 }
 
 #[wasm_bindgen]
-impl Dimensions {
+impl X {
     #[wasm_bindgen(constructor)]
     pub fn new(nickname: String, description: String) -> Self {
         let creator = Creator::new();
