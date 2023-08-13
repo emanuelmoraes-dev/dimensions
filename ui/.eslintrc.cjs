@@ -33,6 +33,9 @@ module.exports = {
         'linebreak-style': ['error', 'unix'], // lf
         'semi': ['error','never'], // no semicolon
         'quotes': ['error','single'], // single quotes
-        'object-curly-spacing': ['error', 'never', {'arraysInObjects': false, 'objectsInObjects': false}] // no spaces in braces
+        'object-curly-spacing': ['error', 'never', {'arraysInObjects': false, 'objectsInObjects': false}], // no spaces in braces
+        'no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': ['error', {'args': 'none'}],
+        '@typescript-eslint/no-explicit-any': ['off']
     }
 }
