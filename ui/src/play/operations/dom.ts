@@ -1,5 +1,6 @@
 import {ICanvas, IElement} from 'play/ports/i-obj'
 import {IGame} from 'play/ports/i-game'
+import config from './config'
 
 export default {
     append(...elements: IElement[]): void {
@@ -18,13 +19,7 @@ export default {
     setFullSize(game: IGame): void {
         const width = document.documentElement.clientWidth
         const height = document.documentElement.clientHeight
-
-        game.width = width
-        game.height = height
-
-        const canvasElement = game.canvas.element
-        canvasElement.width = width
-        canvasElement.height = height
+        config.setSize(game, width, height)
     },
     autoFullSize(game: IGame): void {
         this.setFullSize(game)
@@ -32,8 +27,5 @@ export default {
             this.setFullSize(game)
             game.draw()
         })
-    },
-    onload(callback: () => void): void {
-        document.addEventListener('DOMContentLoaded', callback)
     }
 }

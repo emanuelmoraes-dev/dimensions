@@ -1,7 +1,9 @@
 export default {
     alias: {
         core: '../core',
-        play: './src/play'
+        play: './src/play',
+        types: './src/types',
+        util: './util'
     },
     mount: {
         'style': '/style',
