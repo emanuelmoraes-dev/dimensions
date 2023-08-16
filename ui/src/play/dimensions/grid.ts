@@ -1,6 +1,7 @@
 import umath from 'util/umath'
 import {IGrid} from 'play/ports/i-grid'
 import {IGame} from 'play/ports/i-game'
+import {ICanvas} from 'play/ports/i-obj'
 
 enum Direction {
     Left,
@@ -16,13 +17,13 @@ const getNextCoord = (x: number, y: number, ...directions: Direction[]): {x: num
             x--
             break
         case Direction.Top:
-            y++
+            y--
             break
         case Direction.Right:
             x++
             break
         case Direction.Down:
-            y--
+            y++
             break
         }
     })
@@ -30,8 +31,26 @@ const getNextCoord = (x: number, y: number, ...directions: Direction[]): {x: num
 }
 
 const getNextDirection = (d: Direction): Direction => {
-    return ((d + 1) % Object.keys(Direction).length) as Direction
+    switch(d) {
+    case Direction.Left: return Direction.Top
+    case Direction.Top: return Direction.Right
+    case Direction.Right: return Direction.Down
+    case Direction.Down: return Direction.Left
+    }
 }
+
+const isVertical = (d: Direction): boolean => {
+    switch(d) {
+    case Direction.Left:
+    case Direction.Right:
+        return true
+    case Direction.Top:
+    case Direction.Down:
+        return false
+    }
+}
+
+const isHorizontal = (d: Direction): boolean => !isVertical(d)
 
 export class Grid implements IGrid {
     constructor(
@@ -39,62 +58,104 @@ export class Grid implements IGrid {
         public imageHeight: number,
         public x: number,
         public y: number,
-        public deep: number,
-        private direction: Direction,
-        private position: number
+        public positionWidth: number,
+        public positionHeight: number,
+        public deepWidth: number,
+        public deepHeight: number,
+        public direction: Direction
     ) {}
 
-    next(): IGrid {
-        if (this.position === 0) {
-            const {x, y} = getNextCoord(this.x, this.y, Direction.Right, Direction.Down)
-            const position = 1
-            const deep = 2
-            return new Grid(this.imageWidth, this.imageHeight, x, y, deep, Direction.Left, position)
-        }
+    next(): Grid {
+        let nextPositionWidth = this.positionWidth
+        let nextPositionHeight = this.positionHeight
+        let nextDeepWidth = this.deepWidth
+        let nextDeepHeight = this.deepHeight
+        let nextDirection = this.direction
 
-        let direction: Direction
-        if (this.position % this.deep === 0) {
-            direction = getNextDirection(this.direction)
+        if (isHorizontal(this.direction)) {
+            nextPositionWidth++
+            if (nextPositionWidth > this.deepWidth) {
+                nextPositionWidth = 1
+                nextPositionHeight++
+                nextDeepWidth = this.deepWidth + 1
+                nextDirection = getNextDirection(this.direction)
+            }
         } else {
-            direction = this.direction
+            nextPositionHeight++
+            if (nextPositionHeight > this.deepHeight) {
+                nextPositionHeight = 1
+                nextPositionWidth++
+                nextDeepHeight = this.deepHeight + 1
+                nextDirection = getNextDirection(this.direction)
+            }
         }
 
-        let x: number
-        let y: number
-        let position: number
-        let deep: number
-        if (direction === Direction.Left && direction !== this.direction) {
-            const {x: nx, y: ny} = getNextCoord(this.x, this.y, Direction.Down, Direction.Down)
-            x = nx
-            y = ny
-            deep = this.deep + 1
-            position = 1
-        } else {
-            const {x: nx, y: ny} = getNextCoord(this.x, this.y, this.direction)
-            x = nx
-            y = ny
-            deep = this.deep
-            position = this.position + 1
-        }
+        const {x: nx, y: ny} = getNextCoord(this.x, this.y, nextDirection)
 
-        return new Grid(this.imageWidth, this.imageHeight, x, y, deep, direction, position)
+        return new Grid(this.imageWidth, this.imageHeight, nx, ny, nextPositionWidth, nextPositionHeight, nextDeepWidth, nextDeepHeight, nextDirection)
     }
 
-    draw(game: IGame, image: CanvasImageSource): boolean {
-        return false
+    draw(canvas: ICanvas, image: CanvasImageSource, imageWidth: number, imageHeight: number): boolean {
+        const canvasWidth = canvas.element.width
+        const canvasHeight = canvas.element.height
+
+        const canvasCenterWidth = canvasWidth / 2
+        const canvasCenterHeight = canvasHeight / 2
+
+        const imageCenterWidth = this.imageWidth / 2
+        const imageCenterHeight = this.imageHeight / 2
+
+        const imageCenterX = canvasCenterWidth + (this.x * this.imageWidth)
+        const imageCenterY = canvasCenterHeight + (this.y * this.imageHeight)
+
+        const odx = imageCenterX - imageCenterWidth
+        const ody = imageCenterY - imageCenterHeight
+
+        const dx = Math.max(0, odx)
+        const dy = Math.max(0, ody)
+
+        if (dx > canvasWidth || dy > canvasHeight) {
+            return false
+        }
+
+        const dxDiff = dx - odx
+        const dyDiff = dy - ody
+
+        const sx = dxDiff / this.imageWidth * imageWidth
+        const sy = dyDiff / this.imageHeight * imageHeight
+
+        const sWidth = imageWidth - sx
+        const sHeight = imageHeight - sy
+
+        if (sWidth <= 0 || sHeight <= 0) {
+            return false
+        }
+
+        const dWidth = this.imageWidth - dxDiff
+        const dHeight = this.imageHeight - dyDiff
+
+        if (dWidth <= 0 || dHeight <= 0) {
+            return false
+        }
+
+        canvas.context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+        return true
     }
 
     static build(game: IGame): Grid {
-        const gameWidth = game.width
-        const gameHeigth = game.height
+        const canvas = game.canvas
+        const gameWidth = canvas.element.width
+        const gameHeigth = canvas.element.height
         const config = game.config.grid
         const imageWidth = umath.interval(config.minImageWidth, config.maxImageWidth, gameWidth * config.percentImageWidth)
         const imageHeight = umath.interval(config.minImageHeigth, config.maxImageHeigth, gameHeigth * config.percentImageHeigth)
         const x = 0
         const y = 0
+        const positionWidth = 1
+        const positionHeight = 1
+        const deepWidth = 2
+        const deepHeight = 2
         const direction = Direction.Left
-        const position = 0
-        const deep = 1
-        return new Grid(imageWidth, imageHeight, x, y, deep, direction, position)
+        return new Grid(imageWidth, imageHeight, x, y, positionWidth, positionHeight, deepWidth, deepHeight, direction)
     }
 }
