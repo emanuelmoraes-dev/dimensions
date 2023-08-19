@@ -36,6 +36,6 @@ module.exports = {
         'object-curly-spacing': ['error', 'never', {'arraysInObjects': false, 'objectsInObjects': false}], // no spaces in braces
         'no-unused-vars': 'off',
         '@typescript-eslint/no-unused-vars': ['error', {'args': 'none'}],
-        '@typescript-eslint/no-explicit-any': ['off']
+        '@typescript-eslint/no-explicit-any': ['error']
     }
 }

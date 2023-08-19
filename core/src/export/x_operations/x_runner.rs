@@ -1,14 +1,10 @@
-use crate::js::console;
-use crate::ports::models::subjects::Player;
+use wasm_bindgen::prelude::*;
 
-pub fn run(player: &Player) {
-    console::log("Wellcome to Dimensions!");
-    console::log("Character created!");
-    show_character(player);
-    console::log("Done!");
-}
+use crate::{js::console, export::x_data::X};
 
-fn show_character(player: &Player) {
+#[wasm_bindgen]
+pub fn x_show_character(x: &X) {
+    let player = &x.player;
     console::log(&format!("Nickname: {}", player.nickname));
     console::log(&format!("Description: {}", player.description));
     console::log("Attributes:");

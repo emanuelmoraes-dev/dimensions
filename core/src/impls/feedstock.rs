@@ -9,7 +9,7 @@ use super::universe::Universe;
 #[macro_export]
 macro_rules! fsdef {
     () => {
-        Box<dyn Fn(usize, usize, &crate::act::meta::Meta, &crate::act::universe::Universe) -> u32>
+        Box<dyn Fn(usize, usize, &crate::impls::meta::Meta, &crate::impls::universe::Universe) -> u32>
     };
 }
 

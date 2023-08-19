@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 
-use crate::act::creator::Creator;
+use crate::impls::creator::Creator;
 use crate::ports::models::subjects::Player;
 use crate::ports::traits::t_creator::TCreator;
 

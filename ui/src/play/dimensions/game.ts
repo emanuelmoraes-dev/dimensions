@@ -1,5 +1,5 @@
 import core from 'play/dimensions/core'
-import dom from 'play/operations/dom'
+import dom from '../ports/operations/dom'
 import uobj from 'util/uobj'
 import {Grid} from 'play/dimensions/grid'
 import {X} from 'core/pkg/core'
@@ -10,14 +10,14 @@ import {DeepPartial} from 'types'
 
 const buildGameConfig = (config: DeepPartial<IGameConfig>): IGameConfig => ({
     grid: uobj.setDefault(config.grid ?? {}, {
-        minImageWidth: 50,
-        maxImageWidth: 100,
+        minImageWidth: 100,
+        maxImageWidth: 150,
 
-        minImageHeigth: 50,
-        maxImageHeigth: 100,
+        minImageHeigth: 100,
+        maxImageHeigth: 150,
 
-        percentImageWidth: 0.1,
-        percentImageHeigth: 0.1
+        percentImageWidth: 0.2,
+        percentImageHeigth: 0.2
     })
 })
 
@@ -35,7 +35,7 @@ export class Dimensions implements IGame {
     private images: HTMLImageElement[] = []
     private imagesBase: HTMLImageElement[]
 
-    readonly maxCountTime = 10000
+    readonly maxCountTime = 5000
     readonly colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'pink', 'brown', 'black']
 
     constructor(
@@ -83,7 +83,7 @@ export class Dimensions implements IGame {
 
         const maxImageSize = Math.max(imageWidth, imageHeight)
         const maxCanvasSize = Math.max(canvasWidth, canvasHeight)
-        const maxDeep = Math.floor(maxCanvasSize / maxImageSize) + 1
+        const maxDeep = Math.floor(maxCanvasSize / maxImageSize) + 2
 
         // let grid = this.grid
         // const length = Math.floor(images.length * (this.countTime / this.maxCountTime)) + 1
@@ -96,10 +96,10 @@ export class Dimensions implements IGame {
         //     grid = grid.next()
         // }
 
-        let imagesMaxLength
+        let imagesMaxLength: number
 
         if (this.images.length > 0) {
-            imagesMaxLength = Math.floor(this.images.length * (this.countTime / this.maxCountTime)) + 1
+            imagesMaxLength = Math.floor(this.images.length * (this.countTime / this.maxCountTime)) * 1.3
         } else {
             imagesMaxLength = Number.MAX_SAFE_INTEGER
         }
@@ -109,19 +109,21 @@ export class Dimensions implements IGame {
         let lastDeep = Math.min(grid.deepWidth, grid.deepHeight)
         let imageIndex = 0
         while (Math.min(grid.deepWidth, grid.deepHeight) <= maxDeep && imageIndex < imagesMaxLength) {
-            if (imageIndex >= imagesMaxLength) {
-                break
-            }
+            let image: HTMLImageElement
 
-            if (this.images.length <= imageIndex) {
+            if (imageIndex < this.images.length) {
+                image = this.images[imageIndex]
+            } else {
                 const imageBaseIndex = Math.floor(Math.random() * this.imagesBase.length)
-                this.images[imageIndex] = this.imagesBase[imageBaseIndex]
+                image = this.imagesBase[imageBaseIndex]
             }
-
-            const image = this.images[imageIndex++]
 
             if (grid.draw(this.canvas, image, imageWidth, imageHeight)) {
                 drawn = true
+                if (imageIndex >= this.images.length) {
+                    this.images.push(image)
+                }
+                imageIndex++
             }
 
             grid = grid.next()
