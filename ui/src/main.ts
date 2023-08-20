@@ -1,6 +1,6 @@
-import {Dimensions} from 'play/dimensions/game'
-import runner from 'play/runner'
-import dom from 'play/ports/operations/dom'
+import {Dimensions} from 'canvas/dimensions/game'
+import runner from 'canvas/runner'
+import dom from 'canvas/ports/operations/dom'
 import udom from 'util/udom'
 
 const game = Dimensions.build('dimensions')

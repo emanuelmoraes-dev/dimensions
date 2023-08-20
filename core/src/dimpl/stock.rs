@@ -44,7 +44,12 @@ impl<T: TOptId> TStock<T> for Stock<T> {
         self.itens.push(item);
         self.build_map(Some((index, id)));
     }
-    fn map(&self) -> &HashMap<String, usize> {
-        &self.map
+    fn remove(&mut self, id: &str) -> Option<T> {
+        if let Some(index) = self.map.remove(id) {
+            let item = self.itens.remove(index);
+            Some(item)
+        } else {
+            None
+        }
     }
 }

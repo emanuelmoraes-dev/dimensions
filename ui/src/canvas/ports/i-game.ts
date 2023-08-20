@@ -1,6 +1,6 @@
-import {ICanvas, Iid} from 'play/ports/i-obj'
-import {IGameConfig} from 'play/ports/i-config'
-import {IGrid} from 'play/ports/i-grid'
+import {ICanvas, Iid} from 'canvas/ports/i-obj'
+import {IGameConfig} from 'canvas/ports/i-config'
+import {IGrid} from 'canvas/ports/i-grid'
 
 export interface IGame extends Iid {
     width: number

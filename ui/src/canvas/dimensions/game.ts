@@ -1,11 +1,11 @@
-import core from 'play/dimensions/core'
+import core from 'canvas/dimensions/core'
 import dom from '../ports/operations/dom'
 import uobj from 'util/uobj'
-import {Grid} from 'play/dimensions/grid'
+import {Grid} from 'canvas/dimensions/grid'
 import {X} from 'core/pkg/core'
-import {IGame} from 'play/ports/i-game'
-import {ICanvas} from 'play/ports/i-obj'
-import {IGameConfig} from 'play/ports/i-config'
+import {IGame} from 'canvas/ports/i-game'
+import {ICanvas} from 'canvas/ports/i-obj'
+import {IGameConfig} from 'canvas/ports/i-config'
 import {DeepPartial} from 'types'
 
 const buildGameConfig = (config: DeepPartial<IGameConfig>): IGameConfig => ({

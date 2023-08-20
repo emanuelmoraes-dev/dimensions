@@ -1,7 +1,7 @@
 export default {
     alias: {
         core: '../core',
-        play: './src/play',
+        canvas: './src/canvas',
         types: './src/types',
         util: './src/util'
     },
