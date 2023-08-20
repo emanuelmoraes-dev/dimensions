@@ -9,6 +9,8 @@ export interface IGridConfig {
     minImageHeigth: number
     maxImageHeigth: number
 
-    percentImageWidth: number
-    percentImageHeigth: number
+    percentImageSize: number
+    useMaxPercent: boolean
+
+    aspectRatio: number
 }

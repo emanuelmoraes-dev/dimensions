@@ -10,14 +10,15 @@ import {DeepPartial} from 'types'
 
 const buildGameConfig = (config: DeepPartial<IGameConfig>): IGameConfig => ({
     grid: uobj.setDefault(config.grid ?? {}, {
-        minImageWidth: 100,
-        maxImageWidth: 150,
+        minImageWidth: 70,
+        maxImageWidth: 100,
 
-        minImageHeigth: 100,
-        maxImageHeigth: 150,
+        minImageHeigth: 70,
+        maxImageHeigth: 100,
 
-        percentImageWidth: 0.2,
-        percentImageHeigth: 0.2
+        percentImageSize: 0.1,
+        useMaxPercent: true,
+        aspectRatio: 1
     })
 })
 
@@ -27,13 +28,13 @@ export class Dimensions implements IGame {
 
     canvas: ICanvas = dom.createCanvas(this.id)
     config: IGameConfig
-    grid: Grid
+    grid!: Grid
 
     private x!: X
     private lastTime: number = new Date().getTime()
     private countTime = 0
     private images: HTMLImageElement[] = []
-    private imagesBase: HTMLImageElement[]
+    private imagesBase!: HTMLImageElement[]
 
     readonly maxCountTime = 5000
     readonly colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'pink', 'brown', 'black']
@@ -45,6 +46,11 @@ export class Dimensions implements IGame {
         config: DeepPartial<IGameConfig>
     ) {
         this.config = buildGameConfig(config)
+    }
+
+    async setup(): Promise<void> {
+        this.x = await core.init(this.nickname, this.description)
+        dom.append(this.canvas)
         this.grid = Grid.build(this)
         this.imagesBase = this.colors.map(color => {
             const image = new Image()
@@ -54,11 +60,6 @@ export class Dimensions implements IGame {
                 '</svg>'
             return image
         })
-    }
-
-    async setup(): Promise<void> {
-        this.x = await core.init(this.nickname, this.description)
-        dom.append(this.canvas)
     }
 
     draw(): void {

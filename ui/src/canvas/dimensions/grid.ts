@@ -143,12 +143,17 @@ export class Grid implements IGrid {
     }
 
     static build(game: IGame): Grid {
+        const config = game.config.grid
         const canvas = game.canvas
         const gameWidth = canvas.element.width
         const gameHeigth = canvas.element.height
-        const config = game.config.grid
-        const imageWidth = umath.interval(config.minImageWidth, config.maxImageWidth, gameWidth * config.percentImageWidth)
-        const imageHeight = umath.interval(config.minImageHeigth, config.maxImageHeigth, gameHeigth * config.percentImageHeigth)
+        const gameMaxSize = Math.max(gameWidth, gameHeigth)
+        const gameMinSize = Math.min(gameWidth, gameHeigth)
+        const size = config.useMaxPercent ? gameMaxSize : gameMinSize
+        const aspectRationWidth = Math.min(1, config.aspectRatio)
+        const aspectRationHeight = Math.min(1, 1 / config.aspectRatio)
+        const imageWidth = umath.interval(config.minImageWidth, config.maxImageWidth, size * config.percentImageSize * aspectRationWidth)
+        const imageHeight = umath.interval(config.minImageHeigth, config.maxImageHeigth, size * config.percentImageSize * aspectRationHeight)
         const x = 0
         const y = 0
         const positionWidth = 1
