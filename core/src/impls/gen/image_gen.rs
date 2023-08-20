@@ -1,6 +1,6 @@
 use image::{Rgba, RgbaImage, ImageBuffer};
 
-use crate::ports::traits::t_gen::TImageGen;
+use crate::{ports::traits::t_gen::TImageGen, assets::fonts::BinaryFont};
 
 pub struct ImageGen {}
 
@@ -15,7 +15,7 @@ impl ImageGen {
     }
 }
 
-impl TImageGen for ImageGen {
+impl<'a> TImageGen<RgbaImage, Rgba<u8>, BinaryFont> for ImageGen {
     fn combine(&self, images: Vec<RgbaImage>) -> RgbaImage {
         let mut max_width = 0;
         let mut max_height = 0;
@@ -47,5 +47,33 @@ impl TImageGen for ImageGen {
         }
 
         combined_image
+    }
+
+    fn color(&self, color: Rgba<u8>, width: u32, height: u32) -> RgbaImage {
+        ImageBuffer::from_pixel(width, height, color)
+    }
+
+    fn text(&self, font: BinaryFont, bg_color: Rgba<u8>, text_color: Rgba<u8>, text: &str, width: u32, height: u32) -> RgbaImage {
+        let mut image: ImageBuffer<Rgba<u8>, Vec<u8>> = ImageBuffer::from_pixel(width, height, bg_color);
+
+        let font_data = rusttype::Font::try_from_bytes(font.data).unwrap();
+        let scale = rusttype::Scale::uniform(font.font_size);
+        let v_metrics = font_data.v_metrics(scale);
+        let offset = rusttype::point(font.offset_x, v_metrics.ascent + font.offset_y);
+
+        let glyphs: Vec<_> = font_data.layout(text, scale, offset).collect();
+
+        for glyph in glyphs {
+            if let Some(bounding_box) = glyph.pixel_bounding_box() {
+                glyph.draw(|x, y, _| {
+                    let x = x as i32 + bounding_box.min.x;
+                    let y = y as i32 + bounding_box.min.y;
+                    let pixel = image.get_pixel_mut(x as u32, y as u32);
+                    *pixel = self.blend_pixels(*pixel, text_color);
+                })
+            }
+        }
+
+        image
     }
 }

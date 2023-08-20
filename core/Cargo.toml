@@ -12,3 +12,4 @@ crate-type = ["cdylib"]
 [dependencies]
 wasm-bindgen = "0.2"
 image = "0.24"
+rusttype = "0.9"

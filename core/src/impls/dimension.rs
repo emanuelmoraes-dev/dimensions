@@ -14,13 +14,13 @@ impl TOptId for Dimension {
 }
 
 impl TDimension for Dimension {
+    fn as_any(&self) -> &dyn std::any::Any {
+        self
+    }
     fn move_to(&self, x: usize, y: usize) -> Option<&Location> {
         if let Some(locations) = self.locations.get(y) {
             return locations.get(x);
         }
         None
-    }
-    fn as_any(&self) -> &dyn std::any::Any {
-        self
     }
 }
