@@ -2,7 +2,7 @@ import core from 'canvas/dimensions/core'
 import dom from '../ports/operations/dom'
 import uobj from 'util/uobj'
 import {Grid} from 'canvas/dimensions/grid'
-import {X} from 'core/pkg/core'
+import {XCore, XDebug, XImageFormat, XImageGen} from 'core/pkg/core'
 import {IGame} from 'canvas/ports/i-game'
 import {ICanvas} from 'canvas/ports/i-obj'
 import {IGameConfig} from 'canvas/ports/i-config'
@@ -22,6 +22,17 @@ const buildGameConfig = (config: DeepPartial<IGameConfig>): IGameConfig => ({
     })
 })
 
+const colorNameToUint8Array = (colorName: string): Uint8Array => {
+    const canvas = document.createElement('canvas')
+    canvas.width = 1
+    canvas.height = 1
+    const context = canvas.getContext('2d')!
+    context.fillStyle = colorName
+    context.fillRect(0, 0, 1, 1)
+    const imageData = context.getImageData(0, 0, 1, 1)
+    return new Uint8Array(imageData.data)
+}
+
 export class Dimensions implements IGame {
     width!: number
     height!: number
@@ -30,7 +41,7 @@ export class Dimensions implements IGame {
     config: IGameConfig
     grid!: Grid
 
-    private x!: X
+    private core!: XCore
     private lastTime: number = new Date().getTime()
     private countTime = 0
     private images: HTMLImageElement[] = []
@@ -49,15 +60,49 @@ export class Dimensions implements IGame {
     }
 
     async setup(): Promise<void> {
-        this.x = await core.init(this.nickname, this.description)
+        this.core = await core.init(this.nickname, this.description)
+        XDebug.show_character(this.core)
         dom.append(this.canvas)
         this.grid = Grid.build(this)
-        this.imagesBase = this.colors.map(color => {
+        // this.imagesBase = this.colors.map(color => {
+        //     const image = new Image()
+        //     image.src = 'data:image/svg+xml,' +
+        //         `<svg xmlns='http://www.w3.org/2000/svg' width='${this.grid.imageWidth}' height='${this.grid.imageHeight}'>` +
+        //         `<rect width='100%' height='100%' fill='${color}' />` +
+        //         '</svg>'
+        //     return image
+        // })
+        this.imagesBase = this.colors.map(colorName => {
+            const color = colorNameToUint8Array(colorName)
+            // const alpha = new Uint8Array([0, 0, 0, 0])
+            // const white = colorNameToUint8Array('white')
+            const width = this.grid.imageWidth
+            const height = this.grid.imageHeight
+            const imgBg = XImageGen.color(this.core, XImageFormat.Png, color, width, height)
+
+            if (!imgBg) {
+                throw new Error('imgBg is undefined')
+            }
+
+            // const font = new XFont(XFontsData.RobotoRegular, 12, 0, 0)
+            // const imgText = XImageGen.text(this.core, XImageFormat.Png, font, alpha, white, colorName[0].toUpperCase(), width, height)
+
+            // if (!imgText) {
+            //     throw new Error('imgText is undefined')
+            // }
+
+            // const ximage = XImageGen.combine2(this.core, XImageFormat.Png, imgBg, imgText)
+
+            // if (!ximage) {
+            //     throw new Error('ximage is undefined')
+            // }
+
+            const ximage = imgBg
+            const data = ximage.data()
+            const blob = new Blob([data], {type: 'image/png'})
+            const imageUrl = URL.createObjectURL(blob)
             const image = new Image()
-            image.src = 'data:image/svg+xml,' +
-                `<svg xmlns='http://www.w3.org/2000/svg' width='${this.grid.imageWidth}' height='${this.grid.imageHeight}'>` +
-                `<rect width='100%' height='100%' fill='${color}' />` +
-                '</svg>'
+            image.src = imageUrl
             return image
         })
     }

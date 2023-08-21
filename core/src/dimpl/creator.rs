@@ -1,5 +1,5 @@
+use super::config::creator_config::CreatorConfig;
 use super::config::i18n::I18nSubjectAttr;
-use super::config::Config;
 use crate::ports::models::subjects::{
     Inventory, Npc, Player, Subject, SubjectAttr, SubjectAttrType,
 };
@@ -7,13 +7,13 @@ use crate::ports::traits::t_creator::TCreator;
 use crate::ports::traits::t_role::TNpcRole;
 
 pub struct Creator {
-    pub config: Config,
+    pub config: CreatorConfig,
 }
 
 impl Creator {
     pub fn new() -> Self {
         Self {
-            config: Config::new(),
+            config: CreatorConfig::new(),
         }
     }
 }
@@ -36,7 +36,7 @@ impl TCreator for Creator {
     }
 }
 
-fn new_subject(config: &Config) -> Subject {
+fn new_subject(config: &CreatorConfig) -> Subject {
     Subject {
         hearts: config.default.hearts,
         inventory: new_inventory(config),
@@ -44,14 +44,14 @@ fn new_subject(config: &Config) -> Subject {
     }
 }
 
-fn new_inventory(config: &Config) -> Inventory {
+fn new_inventory(config: &CreatorConfig) -> Inventory {
     Inventory {
         capacity: config.default.inventory_capacity,
         itens: Vec::new(),
     }
 }
 
-fn new_attr(config: &Config, atype: SubjectAttrType, i18n: &I18nSubjectAttr) -> SubjectAttr {
+fn new_attr(config: &CreatorConfig, atype: SubjectAttrType, i18n: &I18nSubjectAttr) -> SubjectAttr {
     SubjectAttr {
         atype,
         title: i18n.title,
@@ -61,7 +61,7 @@ fn new_attr(config: &Config, atype: SubjectAttrType, i18n: &I18nSubjectAttr) -> 
     }
 }
 
-fn new_attrs(config: &Config) -> [SubjectAttr; 20] {
+fn new_attrs(config: &CreatorConfig) -> [SubjectAttr; 20] {
     let i18n = &config.i18n.subject_attrs;
     [
         new_attr(config, SubjectAttrType::Vitality, &i18n.vitality),

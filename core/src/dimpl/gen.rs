@@ -1,18 +1,18 @@
-use image::{RgbaImage, Rgba};
+use image::{Rgba, RgbaImage};
 
-use crate::{ports::traits::t_gen::TGen, assets::fonts::BinaryFont};
+use crate::{assets::fonts::BinaryFont, ports::traits::t_gen::TGen};
 
 use self::image_gen::ImageGen;
 
 pub mod image_gen;
 
 pub struct Gen {
-    image: ImageGen
+    image: ImageGen,
 }
 
 impl Gen {
     pub fn new() -> Gen {
-        Gen {image: ImageGen {}}
+        Gen { image: ImageGen }
     }
 }
 

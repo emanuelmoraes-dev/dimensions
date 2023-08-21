@@ -1,8 +1,8 @@
-use image::{Rgba, RgbaImage, ImageBuffer};
+use image::{ImageBuffer, Rgba, RgbaImage};
 
-use crate::{ports::traits::t_gen::TImageGen, assets::fonts::BinaryFont};
+use crate::{assets::fonts::BinaryFont, ports::traits::t_gen::TImageGen};
 
-pub struct ImageGen {}
+pub struct ImageGen;
 
 impl ImageGen {
     fn blend_pixels(&self, bg: Rgba<u8>, fg: Rgba<u8>) -> Rgba<u8> {
