@@ -4,6 +4,8 @@
         "vite/client": "npm:vite/client",
 
         "less": "npm:less",
+        "@typescript-eslint/eslint-plugin": "npm:@typescript-eslint/eslint-plugin@^6.3.0",
+        "@typescript-eslint/parser": "npm:@typescript-eslint/parser@^6.3.0",
 
         "assets/": "./assets/",
         "canvas/": "./src/canvas/",
