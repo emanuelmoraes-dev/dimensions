@@ -1,11 +1,11 @@
-import core from 'canvas/dimensions/core'
-import dom from '../ports/operations/dom'
-import uobj from 'util/uobj'
-import {Grid} from 'canvas/dimensions/grid'
-import {XCore, XDebug, XImageFormat, XImageGen} from 'core/pkg/core'
-import {IGame} from 'canvas/ports/i-game'
-import {ICanvas} from 'canvas/ports/i-obj'
-import {IGameConfig} from 'canvas/ports/i-config'
+import core from 'canvas/dimensions/core.ts'
+import dom from '../ports/operations/dom.ts'
+import uobj from 'util/uobj.ts'
+import {Grid} from 'canvas/dimensions/grid.ts'
+import {XCore, XDebug, XImageFormat, XImageGen} from 'assets/wasm/core.js'
+import {IGame} from 'canvas/ports/i-game.ts'
+import {ICanvas} from 'canvas/ports/i-obj.ts'
+import {IGameConfig} from 'canvas/ports/i-config.ts'
 import {DeepPartial} from 'types'
 
 const buildGameConfig = (config: DeepPartial<IGameConfig>): IGameConfig => ({
@@ -37,7 +37,7 @@ export class Dimensions implements IGame {
     width!: number
     height!: number
 
-    canvas: ICanvas = dom.createCanvas(this.id)
+    canvas: ICanvas
     config: IGameConfig
     grid!: Grid
 
@@ -57,6 +57,7 @@ export class Dimensions implements IGame {
         config: DeepPartial<IGameConfig>
     ) {
         this.config = buildGameConfig(config)
+        this.canvas = dom.createCanvas(this.id)
     }
 
     async setup(): Promise<void> {

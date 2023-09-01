@@ -1,0 +1,15 @@
+{
+  "name": "core",
+  "version": "0.0.1",
+  "license": "MIT",
+  "files": [
+    "core_bg.wasm",
+    "core.js",
+    "core.d.ts"
+  ],
+  "module": "core.js",
+  "types": "core.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

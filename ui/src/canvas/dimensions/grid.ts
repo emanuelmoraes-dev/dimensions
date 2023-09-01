@@ -1,7 +1,7 @@
-import umath from 'util/umath'
-import {IGrid} from 'canvas/ports/i-grid'
-import {IGame} from 'canvas/ports/i-game'
-import {ICanvas} from 'canvas/ports/i-obj'
+import umath from 'util/umath.ts'
+import {IGrid} from 'canvas/ports/i-grid.ts'
+import {IGame} from 'canvas/ports/i-game.ts'
+import {ICanvas} from 'canvas/ports/i-obj.ts'
 
 enum Direction {
     Left,

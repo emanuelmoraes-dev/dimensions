@@ -1,4 +1,4 @@
-import {IGame} from 'canvas/ports/i-game'
+import {IGame} from 'canvas/ports/i-game.ts'
 
 export default {
     loop(game: IGame): void {

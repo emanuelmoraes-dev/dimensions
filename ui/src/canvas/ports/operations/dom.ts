@@ -1,6 +1,6 @@
-import {ICanvas, IElement} from 'canvas/ports/i-obj'
-import {IGame} from 'canvas/ports/i-game'
-import config from './config'
+import {ICanvas, IElement} from 'canvas/ports/i-obj.ts'
+import {IGame} from 'canvas/ports/i-game.ts'
+import config from 'canvas/ports/operations/config.ts'
 
 export default {
     append(...elements: IElement[]): void {

@@ -1,4 +1,4 @@
-import {ICanvas} from './i-obj'
+import {ICanvas} from 'canvas/ports/i-obj.ts'
 
 export interface IGrid {
     imageWidth: number

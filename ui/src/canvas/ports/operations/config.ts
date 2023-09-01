@@ -1,4 +1,4 @@
-import {IGame} from 'canvas/ports/i-game'
+import {IGame} from 'canvas/ports/i-game.ts'
 
 export default {
     setSize(game: IGame, width: number, height: number): void {

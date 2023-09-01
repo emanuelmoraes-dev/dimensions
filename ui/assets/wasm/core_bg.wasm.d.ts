@@ -1,0 +1,30 @@
+/* tslint:disable */
+/* eslint-disable */
+export const memory: WebAssembly.Memory;
+export function __wbg_ximagegen_free(a: number): void;
+export function ximagegen_combine2(a: number, b: number, c: number, d: number): number;
+export function ximagegen_color(a: number, b: number, c: number, d: number, e: number, f: number): number;
+export function ximagegen_text(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number): number;
+export function __wbg_xdebug_free(a: number): void;
+export function xdebug_show_character(a: number): void;
+export function __wbg_xcore_free(a: number): void;
+export function xcore_new(a: number, b: number, c: number, d: number): number;
+export function __wbg_xfont_free(a: number): void;
+export function __wbg_get_xfont_data(a: number): number;
+export function __wbg_set_xfont_data(a: number, b: number): void;
+export function __wbg_get_xfont_font_size(a: number): number;
+export function __wbg_set_xfont_font_size(a: number, b: number): void;
+export function __wbg_get_xfont_offset_x(a: number): number;
+export function __wbg_set_xfont_offset_x(a: number, b: number): void;
+export function __wbg_get_xfont_offset_y(a: number): number;
+export function __wbg_set_xfont_offset_y(a: number, b: number): void;
+export function xfont_new(a: number, b: number, c: number, d: number): number;
+export function __wbg_ximage_free(a: number): void;
+export function ximage_from_bytes(a: number, b: number, c: number): number;
+export function ximage_data(a: number, b: number): void;
+export function __wbg_get_ximage_format(a: number): number;
+export function __wbg_set_ximage_format(a: number, b: number): void;
+export function __wbindgen_malloc(a: number, b: number): number;
+export function __wbindgen_realloc(a: number, b: number, c: number, d: number): number;
+export function __wbindgen_add_to_stack_pointer(a: number): number;
+export function __wbindgen_free(a: number, b: number, c: number): void;

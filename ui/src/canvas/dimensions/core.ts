@@ -1,4 +1,4 @@
-import init, {XCore} from 'core/pkg/core.js'
+import init, {XCore} from 'assets/wasm/core.js'
 
 export default {
     async init(nickname: string, description: string): Promise<XCore> {

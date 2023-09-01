@@ -1,0 +1,13 @@
+{
+    "imports": {
+        "vite": "npm:vite",
+        "vite/client": "npm:vite/client",
+
+        "less": "npm:less",
+
+        "assets/": "./assets/",
+        "canvas/": "./src/canvas/",
+        "types": "./src/types.ts",
+        "util/": "./src/util/"
+    }
+}
