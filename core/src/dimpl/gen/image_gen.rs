@@ -1,6 +1,10 @@
 use image::{ImageBuffer, Rgba, RgbaImage};
+use rusttype::Font;
 
-use crate::{assets::fonts::BinaryFont, ports::traits::t_gen::TImageGen};
+use crate::ports::models::style::TextStyle;
+use crate::ports::traits::t_gen::TImageGen;
+
+use imageproc::drawing::{draw_text_mut, text_size};
 
 pub struct ImageGen;
 
@@ -10,12 +14,11 @@ impl ImageGen {
         let new_red = (fg[0] as f32 * alpha + bg[0] as f32 * (1.0 - alpha)) as u8;
         let new_green = (fg[1] as f32 * alpha + bg[1] as f32 * (1.0 - alpha)) as u8;
         let new_blue = (fg[2] as f32 * alpha + bg[2] as f32 * (1.0 - alpha)) as u8;
-        let new_alpha = (fg[3] + bg[3]) / 2;
-        Rgba([new_red, new_green, new_blue, new_alpha])
+        Rgba([new_red, new_green, new_blue, bg[3]])
     }
 }
 
-impl<'a> TImageGen<RgbaImage, Rgba<u8>, BinaryFont> for ImageGen {
+impl TImageGen<RgbaImage> for ImageGen {
     fn combine(&self, images: Vec<RgbaImage>) -> RgbaImage {
         let mut max_width = 0;
         let mut max_height = 0;
@@ -33,7 +36,7 @@ impl<'a> TImageGen<RgbaImage, Rgba<u8>, BinaryFont> for ImageGen {
 
         for x in 0..max_width {
             for y in 0..max_height {
-                let mut final_pixel = Rgba([0, 0, 0, 0]);
+                let mut final_pixel = Rgba([0, 0, 0, 255]);
 
                 for image in &images {
                     if x < image.width() && y < image.height() {
@@ -49,30 +52,22 @@ impl<'a> TImageGen<RgbaImage, Rgba<u8>, BinaryFont> for ImageGen {
         combined_image
     }
 
-    fn color(&self, color: Rgba<u8>, width: u32, height: u32) -> RgbaImage {
+    fn color(&self, color: [u8; 4], width: u32, height: u32) -> RgbaImage {
+        let color: Rgba<u8> = Rgba(color);
         ImageBuffer::from_pixel(width, height, color)
     }
 
-    fn text(&self, font: BinaryFont, bg_color: Rgba<u8>, text_color: Rgba<u8>, text: &str, width: u32, height: u32) -> RgbaImage {
-        let mut image: ImageBuffer<Rgba<u8>, Vec<u8>> = ImageBuffer::from_pixel(width, height, bg_color);
+    fn text(&self, color: [u8; 4], width: u32, height: u32, text_style: TextStyle, text: &str) -> RgbaImage {
+        let mut image = self.color(color, width, height);
 
-        let font_data = rusttype::Font::try_from_bytes(font.data).unwrap();
-        let scale = rusttype::Scale::uniform(font.font_size);
-        let v_metrics = font_data.v_metrics(scale);
-        let offset = rusttype::point(font.offset_x, v_metrics.ascent + font.offset_y);
+        let font = Font::try_from_bytes(text_style.font).unwrap();
+        let text_color = Rgba(text_style.color);
+        let scale = rusttype::Scale::uniform(text_style.font_size);
+        let (text_width, text_height) = text_size(scale, &font, text);
+        let x: i32 = (text_style.align_x.get_x(width as f32, text_width as f32) + text_style.offset_x) as i32;
+        let y: i32 = (text_style.align_y.get_y(height as f32, text_height as f32) + text_style.offset_y) as i32;
 
-        let glyphs: Vec<_> = font_data.layout(text, scale, offset).collect();
-
-        for glyph in glyphs {
-            if let Some(bounding_box) = glyph.pixel_bounding_box() {
-                glyph.draw(|x, y, _| {
-                    let x = x as i32 + bounding_box.min.x;
-                    let y = y as i32 + bounding_box.min.y;
-                    let pixel = image.get_pixel_mut(x as u32, y as u32);
-                    *pixel = self.blend_pixels(*pixel, text_color);
-                })
-            }
-        }
+        draw_text_mut(&mut image, text_color, x as i32, y as i32, scale, &font, text);
 
         image
     }

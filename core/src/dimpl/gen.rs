@@ -1,6 +1,6 @@
-use image::{Rgba, RgbaImage};
+use image::RgbaImage;
 
-use crate::{assets::fonts::BinaryFont, ports::traits::t_gen::TGen};
+use crate::ports::traits::t_gen::TGen;
 
 use self::image_gen::ImageGen;
 
@@ -16,7 +16,7 @@ impl Gen {
     }
 }
 
-impl TGen<RgbaImage, Rgba<u8>, BinaryFont, ImageGen> for Gen {
+impl TGen<RgbaImage, ImageGen> for Gen {
     fn image(&self) -> &ImageGen {
         &self.image
     }

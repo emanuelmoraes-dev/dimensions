@@ -12,9 +12,11 @@ pub enum XImageFormat {
     Png,
 }
 
-pub fn get_image_output_format(format: XImageFormat) -> ImageOutputFormat {
-    match format {
-        XImageFormat::Png => ImageOutputFormat::Png,
+impl XImageFormat {
+    pub fn to_image_output_format(&self) -> ImageOutputFormat {
+        match self {
+            XImageFormat::Png => ImageOutputFormat::Png
+        }
     }
 }
 
@@ -60,7 +62,7 @@ impl XImage {
         {
             let cursor = Cursor::new(&mut bytes);
             let mut writer = BufWriter::new(cursor);
-            let format = get_image_output_format(format);
+            let format = format.to_image_output_format();
             let result = image.write_to(&mut writer, format);
             if let Err(_) = result {
                 return None;

@@ -1,9 +1,11 @@
-pub trait TImageGen<I, C, F> {
+use crate::ports::models::style::TextStyle;
+
+pub trait TImageGen<I> {
     fn combine(&self, images: Vec<I>) -> I;
-    fn color(&self, color: C, width: u32, height: u32) -> I;
-    fn text(&self, font: F, bg_color: C, text_color: C, text: &str, width: u32, height: u32) -> I;
+    fn color(&self, color: [u8; 4], width: u32, height: u32) -> I;
+    fn text(&self, color: [u8; 4], width: u32, height: u32, text_style: TextStyle, text: &str) -> I;
 }
 
-pub trait TGen<I, C, F, IG: TImageGen<I, C, F>> {
+pub trait TGen<I, IG: TImageGen<I>> {
     fn image(&self) -> &IG;
 }

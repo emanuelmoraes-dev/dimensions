@@ -1,8 +1,8 @@
 import core from 'canvas/dimensions/core.ts'
-import dom from '../ports/operations/dom.ts'
+import dom from 'canvas/ports/operations/dom.ts'
 import uobj from 'util/uobj.ts'
 import {Grid} from 'canvas/dimensions/grid.ts'
-import {XCore, XDebug, XImageFormat, XImageGen} from 'assets/wasm/core.js'
+import {XColor, XCore, XDebug, XFonts, XImageFormat, XImageGen, XTextAlign, XTextStyle} from 'assets/wasm/core.js'
 import {IGame} from 'canvas/ports/i-game.ts'
 import {ICanvas} from 'canvas/ports/i-obj.ts'
 import {IGameConfig} from 'canvas/ports/i-config.ts'
@@ -48,7 +48,7 @@ export class Dimensions implements IGame {
     private imagesBase!: HTMLImageElement[]
 
     readonly maxCountTime = 5000
-    readonly colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'pink', 'brown', 'black']
+    readonly colors = ['red', 'green', 'blue', 'orange', 'purple', 'brown', 'black']
 
     constructor(
         public id: string,
@@ -74,9 +74,7 @@ export class Dimensions implements IGame {
         //     return image
         // })
         this.imagesBase = this.colors.map(colorName => {
-            const color = colorNameToUint8Array(colorName)
-            // const alpha = new Uint8Array([0, 0, 0, 0])
-            // const white = colorNameToUint8Array('white')
+            const color = new XColor(colorNameToUint8Array(colorName))
             const width = this.grid.imageWidth
             const height = this.grid.imageHeight
             const imgBg = XImageGen.color(this.core, XImageFormat.Png, color, width, height)
@@ -85,20 +83,22 @@ export class Dimensions implements IGame {
                 throw new Error('imgBg is undefined')
             }
 
-            // const font = new XFont(XFontsData.RobotoRegular, 12, 0, 0)
-            // const imgText = XImageGen.text(this.core, XImageFormat.Png, font, alpha, white, colorName[0].toUpperCase(), width, height)
+            const alpha = new XColor(new Uint8Array([0, 0, 0, 0]))
+            const white = new XColor(colorNameToUint8Array('white'))
+            const textStyle = new XTextStyle(white, XFonts.RobotoBold, 30, XTextAlign.Center, XTextAlign.Center, 0, 0)
+            const text = colorName[0].toUpperCase() + colorName[colorName.length - 1].toUpperCase()
+            const imgText = XImageGen.text(this.core, XImageFormat.Png, alpha, width, height, textStyle, text)
 
-            // if (!imgText) {
-            //     throw new Error('imgText is undefined')
-            // }
+            if (!imgText) {
+                throw new Error('imgText is undefined')
+            }
 
-            // const ximage = XImageGen.combine2(this.core, XImageFormat.Png, imgBg, imgText)
+            const ximage = XImageGen.combine2(this.core, XImageFormat.Png, imgBg, imgText)
 
-            // if (!ximage) {
-            //     throw new Error('ximage is undefined')
-            // }
+            if (!ximage) {
+                throw new Error('ximage is undefined')
+            }
 
-            const ximage = imgBg
             const data = ximage.data()
             const blob = new Blob([data], {type: 'image/png'})
             const imageUrl = URL.createObjectURL(blob)
