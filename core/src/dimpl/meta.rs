@@ -1,4 +1,4 @@
-use crate::ports::models::location::LocationType;
+use crate::ports::models::location::LocationTypeEnum;
 use crate::ports::traits::t_meta::TMeta;
 
 use super::dimension::Dimension;
@@ -7,13 +7,13 @@ use super::roles::NpcRole;
 use super::stock::Stock;
 
 pub struct Meta {
-    pub location_types: Stock<Feedstock<LocationType>>,
+    pub location_types: Stock<Feedstock<LocationTypeEnum>>,
     pub npc_roles: Stock<Feedstock<NpcRole>>,
 }
 
 impl Meta {
     pub fn new() -> Self {
-        let location_types: Stock<Feedstock<LocationType>> = Stock::new();
+        let location_types: Stock<Feedstock<LocationTypeEnum>> = Stock::new();
         let npc_roles: Stock<Feedstock<NpcRole>> = Stock::new();
         Self {
             location_types,

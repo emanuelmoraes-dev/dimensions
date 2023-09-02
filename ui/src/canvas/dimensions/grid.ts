@@ -3,26 +3,26 @@ import {IGrid} from 'canvas/ports/i-grid.ts'
 import {IGame} from 'canvas/ports/i-game.ts'
 import {ICanvas} from 'canvas/ports/i-obj.ts'
 
-enum Direction {
+enum DirectionEnum {
     Left,
     Top,
     Right,
     Down
 }
 
-const getNextCoord = (x: number, y: number, ...directions: Direction[]): {x: number, y: number} => {
+const getNextCoord = (x: number, y: number, ...directions: DirectionEnum[]): {x: number, y: number} => {
     directions.forEach(d => {
         switch(d) {
-        case Direction.Left:
+        case DirectionEnum.Left:
             x--
             break
-        case Direction.Top:
+        case DirectionEnum.Top:
             y--
             break
-        case Direction.Right:
+        case DirectionEnum.Right:
             x++
             break
-        case Direction.Down:
+        case DirectionEnum.Down:
             y++
             break
         }
@@ -30,27 +30,27 @@ const getNextCoord = (x: number, y: number, ...directions: Direction[]): {x: num
     return {x, y}
 }
 
-const getNextDirection = (d: Direction): Direction => {
+const getNextDirection = (d: DirectionEnum): DirectionEnum => {
     switch(d) {
-    case Direction.Left: return Direction.Top
-    case Direction.Top: return Direction.Right
-    case Direction.Right: return Direction.Down
-    case Direction.Down: return Direction.Left
+    case DirectionEnum.Left: return DirectionEnum.Top
+    case DirectionEnum.Top: return DirectionEnum.Right
+    case DirectionEnum.Right: return DirectionEnum.Down
+    case DirectionEnum.Down: return DirectionEnum.Left
     }
 }
 
-const isVertical = (d: Direction): boolean => {
+const isVertical = (d: DirectionEnum): boolean => {
     switch(d) {
-    case Direction.Left:
-    case Direction.Right:
+    case DirectionEnum.Left:
+    case DirectionEnum.Right:
         return true
-    case Direction.Top:
-    case Direction.Down:
+    case DirectionEnum.Top:
+    case DirectionEnum.Down:
         return false
     }
 }
 
-const isHorizontal = (d: Direction): boolean => !isVertical(d)
+const isHorizontal = (d: DirectionEnum): boolean => !isVertical(d)
 
 export class Grid implements IGrid {
     constructor(
@@ -62,7 +62,7 @@ export class Grid implements IGrid {
         public positionHeight: number,
         public deepWidth: number,
         public deepHeight: number,
-        public direction: Direction
+        public direction: DirectionEnum
     ) {}
 
     next(): Grid {
@@ -160,7 +160,7 @@ export class Grid implements IGrid {
         const positionHeight = 1
         const deepWidth = 2
         const deepHeight = 2
-        const direction = Direction.Left
+        const direction = DirectionEnum.Left
         return new Grid(imageWidth, imageHeight, x, y, positionWidth, positionHeight, deepWidth, deepHeight, direction)
     }
 }

@@ -1,7 +1,7 @@
 use crate::ports::traits::t_dimension::TDimension;
 
 #[derive(Clone, Copy)]
-pub enum LocationType {
+pub enum LocationTypeEnum {
     Ground,
     Cave,
     Wall {
@@ -20,12 +20,12 @@ pub enum LocationType {
 }
 
 pub struct Location {
-    pub ltype: LocationType,
+    pub ltype: LocationTypeEnum,
     pub teleport_to: Option<Box<dyn TDimension>>,
 }
 
 impl Location {
-    pub fn new(ltype: LocationType, teleport_to: Option<Box<dyn TDimension>>) -> Self {
+    pub fn new(ltype: LocationTypeEnum, teleport_to: Option<Box<dyn TDimension>>) -> Self {
         Self { ltype, teleport_to }
     }
 }

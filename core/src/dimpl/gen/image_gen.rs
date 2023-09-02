@@ -1,7 +1,7 @@
 use image::{ImageBuffer, Rgba, RgbaImage};
 use rusttype::Font;
 
-use crate::ports::models::style::{TextStyle, Align};
+use crate::ports::models::style::{TextStyle, AlignEnum};
 use crate::ports::traits::t_gen::TImageGen;
 
 use imageproc::drawing::{draw_text_mut, text_size};
@@ -19,7 +19,7 @@ impl ImageGen {
 }
 
 impl TImageGen<RgbaImage> for ImageGen {
-    fn combine(&self, bg_color: &[u8; 4], align_x: &Align, align_y: &Align, images: Vec<RgbaImage>) -> RgbaImage {
+    fn combine(&self, bg_color: &[u8; 4], align_x: &AlignEnum, align_y: &AlignEnum, images: Vec<&RgbaImage>) -> RgbaImage {
         let mut max_width = 0;
         let mut max_height = 0;
         for image in &images {

@@ -1,6 +1,6 @@
 use crate::ports::traits::t_id::TId;
 
-pub enum ItemAttrType {
+pub enum ItemAttrTypeEnum {
     Strength,
     Dexterity,
     Weight,
@@ -15,7 +15,7 @@ pub enum ItemAttrType {
 }
 
 pub struct ItemAttr {
-    pub atype: ItemAttrType,
+    pub atype: ItemAttrTypeEnum,
     pub title: &'static str,
     pub description: &'static str,
     pub damage: i32,

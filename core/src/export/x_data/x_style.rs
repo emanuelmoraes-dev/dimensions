@@ -1,25 +1,25 @@
 use wasm_bindgen::prelude::*;
 
 use crate::assets::fonts::Fonts;
-use crate::ports::models::style::{TextStyle, Align};
+use crate::ports::models::style::{TextStyle, AlignEnum};
 
 use super::x_color::XColor;
-use super::x_font::XFonts;
+use super::x_font::XFontsEnum;
 
 #[wasm_bindgen]
 #[derive(Clone, Copy)]
-pub enum XAlign {
+pub enum XAlignEnum {
     Start,
     Center,
     End,
 }
 
-impl XAlign {
-    pub fn to_align(&self) -> Align {
+impl XAlignEnum {
+    pub fn to_align(&self) -> AlignEnum {
         match self {
-            XAlign::Start => Align::Start,
-            XAlign::Center => Align::Center,
-            XAlign::End => Align::End
+            XAlignEnum::Start => AlignEnum::Start,
+            XAlignEnum::Center => AlignEnum::Center,
+            XAlignEnum::End => AlignEnum::End
         }
     }
 }
@@ -27,10 +27,10 @@ impl XAlign {
 #[wasm_bindgen]
 pub struct XTextStyle {
     pub color: XColor,
-    pub font: XFonts,
+    pub font: XFontsEnum,
     pub font_size: f32,
-    pub align_x: XAlign,
-    pub align_y: XAlign,
+    pub align_x: XAlignEnum,
+    pub align_y: XAlignEnum,
     pub offset_x: f32,
     pub offset_y: f32,
 }
@@ -38,7 +38,7 @@ pub struct XTextStyle {
 #[wasm_bindgen]
 impl XTextStyle {
     #[wasm_bindgen(constructor)]
-    pub fn new(color: &XColor, font: XFonts, font_size: f32, align_x: XAlign, align_y: XAlign, offset_x: f32, offset_y: f32) -> Self {
+    pub fn new(color: &XColor, font: XFontsEnum, font_size: f32, align_x: XAlignEnum, align_y: XAlignEnum, offset_x: f32, offset_y: f32) -> Self {
         Self { color: color.clone(), font, font_size, align_x, align_y, offset_x, offset_y }
     }
 }

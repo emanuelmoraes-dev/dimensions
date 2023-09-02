@@ -2,7 +2,7 @@ import core from 'canvas/dimensions/core.ts'
 import dom from 'canvas/ports/operations/dom.ts'
 import uobj from 'util/uobj.ts'
 import {Grid} from 'canvas/dimensions/grid.ts'
-import {XColor, XCore, XDebug, XFonts, XImageFormat, XImageGen, XAlign, XTextStyle} from 'assets/wasm/core.js'
+import {XColor, XCore, XDebug, XFontsEnum, XImageFormatEnum, XImageGen, XAlignEnum, XTextStyle} from 'assets/wasm/core.js'
 import {IGame} from 'canvas/ports/i-game.ts'
 import {ICanvas} from 'canvas/ports/i-obj.ts'
 import {IGameConfig} from 'canvas/ports/i-config.ts'
@@ -77,7 +77,7 @@ export class Dimensions implements IGame {
             const color = new XColor(colorNameToUint8Array(colorName))
             const width = this.grid.imageWidth
             const height = this.grid.imageHeight
-            const imgBg = XImageGen.color(this.core, XImageFormat.Png, color, width, height)
+            const imgBg = XImageGen.color(this.core, XImageFormatEnum.Png, color, width, height)
 
             if (!imgBg) {
                 throw new Error('imgBg is undefined')
@@ -85,15 +85,15 @@ export class Dimensions implements IGame {
 
             const alpha = new XColor(new Uint8Array([0, 0, 0, 0]))
             const white = new XColor(colorNameToUint8Array('white'))
-            const textStyle = new XTextStyle(white, XFonts.RobotoBold, 30, XAlign.Center, XAlign.Center, 0, 0)
+            const textStyle = new XTextStyle(white, XFontsEnum.RobotoBold, 30, XAlignEnum.Center, XAlignEnum.Center, 0, 0)
             const text = colorName[0].toUpperCase() + colorName[colorName.length - 1].toUpperCase()
-            const imgText = XImageGen.text(this.core, XImageFormat.Png, alpha, width, height, textStyle, text)
+            const imgText = XImageGen.text(this.core, XImageFormatEnum.Png, alpha, width, height, textStyle, text)
 
             if (!imgText) {
                 throw new Error('imgText is undefined')
             }
 
-            const ximage = XImageGen.combine2(this.core, XImageFormat.Png, white, XAlign.Center, XAlign.Center, imgBg, imgText)
+            const ximage = XImageGen.combine2(this.core, XImageFormatEnum.Png, white, XAlignEnum.Center, XAlignEnum.Center, imgBg, imgText)
 
             if (!ximage) {
                 throw new Error('ximage is undefined')

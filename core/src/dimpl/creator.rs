@@ -1,7 +1,7 @@
 use super::config::creator_config::CreatorConfig;
 use super::config::i18n::I18nSubjectAttr;
 use crate::ports::models::subjects::{
-    Inventory, Npc, Player, Subject, SubjectAttr, SubjectAttrType,
+    Inventory, Npc, Player, Subject, SubjectAttr, SubjectAttrTypeEnum,
 };
 use crate::ports::traits::t_creator::TCreator;
 use crate::ports::traits::t_role::TNpcRole;
@@ -51,7 +51,7 @@ fn new_inventory(config: &CreatorConfig) -> Inventory {
     }
 }
 
-fn new_attr(config: &CreatorConfig, atype: SubjectAttrType, i18n: &I18nSubjectAttr) -> SubjectAttr {
+fn new_attr(config: &CreatorConfig, atype: SubjectAttrTypeEnum, i18n: &I18nSubjectAttr) -> SubjectAttr {
     SubjectAttr {
         atype,
         title: i18n.title,
@@ -64,45 +64,45 @@ fn new_attr(config: &CreatorConfig, atype: SubjectAttrType, i18n: &I18nSubjectAt
 fn new_attrs(config: &CreatorConfig) -> [SubjectAttr; 20] {
     let i18n = &config.i18n.subject_attrs;
     [
-        new_attr(config, SubjectAttrType::Vitality, &i18n.vitality),
-        new_attr(config, SubjectAttrType::Strength, &i18n.strength),
-        new_attr(config, SubjectAttrType::Dexterity, &i18n.dexterity),
-        new_attr(config, SubjectAttrType::Stamina, &i18n.stamina),
-        new_attr(config, SubjectAttrType::Weight, &i18n.weight),
-        new_attr(config, SubjectAttrType::Speed, &i18n.speed),
-        new_attr(config, SubjectAttrType::Intelligence, &i18n.intelligence),
-        new_attr(config, SubjectAttrType::FlySpeed, &i18n.fly_speed),
-        new_attr(config, SubjectAttrType::FlyDuration, &i18n.fly_duration),
-        new_attr(config, SubjectAttrType::FlyAltitude, &i18n.fly_altitude),
-        new_attr(config, SubjectAttrType::Swim, &i18n.swim),
-        new_attr(config, SubjectAttrType::Breath, &i18n.breath),
-        new_attr(config, SubjectAttrType::Endurance, &i18n.endurance),
+        new_attr(config, SubjectAttrTypeEnum::Vitality, &i18n.vitality),
+        new_attr(config, SubjectAttrTypeEnum::Strength, &i18n.strength),
+        new_attr(config, SubjectAttrTypeEnum::Dexterity, &i18n.dexterity),
+        new_attr(config, SubjectAttrTypeEnum::Stamina, &i18n.stamina),
+        new_attr(config, SubjectAttrTypeEnum::Weight, &i18n.weight),
+        new_attr(config, SubjectAttrTypeEnum::Speed, &i18n.speed),
+        new_attr(config, SubjectAttrTypeEnum::Intelligence, &i18n.intelligence),
+        new_attr(config, SubjectAttrTypeEnum::FlySpeed, &i18n.fly_speed),
+        new_attr(config, SubjectAttrTypeEnum::FlyDuration, &i18n.fly_duration),
+        new_attr(config, SubjectAttrTypeEnum::FlyAltitude, &i18n.fly_altitude),
+        new_attr(config, SubjectAttrTypeEnum::Swim, &i18n.swim),
+        new_attr(config, SubjectAttrTypeEnum::Breath, &i18n.breath),
+        new_attr(config, SubjectAttrTypeEnum::Endurance, &i18n.endurance),
         new_attr(
             config,
-            SubjectAttrType::ResistancePhysics,
+            SubjectAttrTypeEnum::ResistancePhysics,
             &i18n.resistance_physics,
         ),
         new_attr(
             config,
-            SubjectAttrType::ResistanceMagic,
+            SubjectAttrTypeEnum::ResistanceMagic,
             &i18n.resistance_magic,
         ),
         new_attr(
             config,
-            SubjectAttrType::ResistanceFire,
+            SubjectAttrTypeEnum::ResistanceFire,
             &i18n.resistance_fire,
         ),
         new_attr(
             config,
-            SubjectAttrType::ResistanceWater,
+            SubjectAttrTypeEnum::ResistanceWater,
             &i18n.resistance_water,
         ),
         new_attr(
             config,
-            SubjectAttrType::ResistanceElectricity,
+            SubjectAttrTypeEnum::ResistanceElectricity,
             &i18n.resistance_electricity,
         ),
-        new_attr(config, SubjectAttrType::ResistanceAir, &i18n.resistance_air),
-        new_attr(config, SubjectAttrType::Luck, &i18n.luck),
+        new_attr(config, SubjectAttrTypeEnum::ResistanceAir, &i18n.resistance_air),
+        new_attr(config, SubjectAttrTypeEnum::Luck, &i18n.luck),
     ]
 }

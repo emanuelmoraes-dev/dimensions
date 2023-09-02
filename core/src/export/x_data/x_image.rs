@@ -8,14 +8,14 @@ use crate::util::image_util::to_rgba_image;
 
 #[wasm_bindgen]
 #[derive(Clone, Copy)]
-pub enum XImageFormat {
+pub enum XImageFormatEnum {
     Png,
 }
 
-impl XImageFormat {
+impl XImageFormatEnum {
     pub fn to_image_output_format(&self) -> ImageOutputFormat {
         match self {
-            XImageFormat::Png => ImageOutputFormat::Png
+            XImageFormatEnum::Png => ImageOutputFormat::Png
         }
     }
 }
@@ -28,13 +28,13 @@ pub struct XImage {
     #[wasm_bindgen(skip)]
     pub bytes: Vec<u8>,
 
-    pub format: XImageFormat,
+    pub format: XImageFormatEnum,
 }
 
 #[wasm_bindgen]
 impl XImage {
     #[wasm_bindgen(constructor)]
-    pub fn from_bytes(format: XImageFormat, bytes: Vec<u8>) -> Option<XImage> {
+    pub fn from_bytes(format: XImageFormatEnum, bytes: Vec<u8>) -> Option<XImage> {
         let cursor = Cursor::new(&bytes);
         let result = image::load(cursor, image::ImageFormat::Png);
         let image: RgbaImage = match result {
@@ -55,7 +55,7 @@ impl XImage {
 }
 
 impl XImage {
-    pub fn from_image(format: XImageFormat, image: RgbaImage) -> Option<XImage> {
+    pub fn from_image(format: XImageFormatEnum, image: RgbaImage) -> Option<XImage> {
         let image = image::DynamicImage::ImageRgba8(image);
         let mut bytes = Vec::new();
 

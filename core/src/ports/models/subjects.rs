@@ -1,7 +1,7 @@
 use super::itens::Item;
 use crate::ports::traits::t_role::TNpcRole;
 
-pub enum SubjectAttrType {
+pub enum SubjectAttrTypeEnum {
     Vitality,
     Strength,
     Dexterity,
@@ -25,7 +25,7 @@ pub enum SubjectAttrType {
 }
 
 pub struct SubjectAttr {
-    pub atype: SubjectAttrType,
+    pub atype: SubjectAttrTypeEnum,
     pub title: &'static str,
     pub description: &'static str,
     pub points: i32,

@@ -4,16 +4,16 @@ use crate::assets::fonts::Fonts;
 
 #[wasm_bindgen]
 #[derive(Clone, Copy)]
-pub enum XFonts {
+pub enum XFontsEnum {
     RobotoRegular,
     RobotoBold
 }
 
-impl XFonts {
+impl XFontsEnum {
     pub fn to_font_data(&self, fonts: &Fonts) -> &'static [u8] {
         match self {
-            XFonts::RobotoRegular => fonts.roboto_regular,
-            XFonts::RobotoBold => fonts.roboto_bold
+            XFontsEnum::RobotoRegular => fonts.roboto_regular,
+            XFontsEnum::RobotoBold => fonts.roboto_bold
         }
     }
 }

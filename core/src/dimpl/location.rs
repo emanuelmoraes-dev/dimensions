@@ -1,19 +1,19 @@
 use crate::ports::models::location::Location;
-use crate::ports::models::location::LocationType;
+use crate::ports::models::location::LocationTypeEnum;
 use crate::ports::traits::t_id::TId;
 
-impl TId for LocationType {
+impl TId for LocationTypeEnum {
     fn id(&self) -> &str {
         match self {
-            LocationType::Ground => "Location(Ground)",
-            LocationType::Cave => "Location(Cave)",
-            LocationType::Wall { quantity: _ } => "Location(Wall)",
-            LocationType::Gram {
+            LocationTypeEnum::Ground => "Location(Ground)",
+            LocationTypeEnum::Cave => "Location(Cave)",
+            LocationTypeEnum::Wall { quantity: _ } => "Location(Wall)",
+            LocationTypeEnum::Gram {
                 quantity: _,
                 min_xratio: _,
                 max_xratio: _,
             } => "Location(Gram)",
-            LocationType::River {
+            LocationTypeEnum::River {
                 quantity: _,
                 min_xratio: _,
                 max_xratio: _,
