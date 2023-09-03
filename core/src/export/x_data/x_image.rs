@@ -1,8 +1,6 @@
 use wasm_bindgen::prelude::*;
-
 use std::io::{BufWriter, Cursor};
-
-use image::{ImageOutputFormat, RgbaImage};
+use image::{ImageOutputFormat, RgbaImage, ImageFormat};
 
 use crate::util::image_util::to_rgba_image;
 
@@ -16,6 +14,12 @@ impl XImageFormatEnum {
     pub fn to_image_output_format(&self) -> ImageOutputFormat {
         match self {
             XImageFormatEnum::Png => ImageOutputFormat::Png
+        }
+    }
+
+    pub fn to_image_format(&self) -> ImageFormat {
+        match self {
+            XImageFormatEnum::Png => ImageFormat::Png
         }
     }
 }
@@ -36,7 +40,7 @@ impl XImage {
     #[wasm_bindgen(constructor)]
     pub fn from_bytes(format: XImageFormatEnum, bytes: Vec<u8>) -> Option<XImage> {
         let cursor = Cursor::new(&bytes);
-        let result = image::load(cursor, image::ImageFormat::Png);
+        let result = image::load(cursor, format.to_image_format());
         let image: RgbaImage = match result {
             Ok(image) => to_rgba_image(image),
             Err(_) => return None,
@@ -55,7 +59,7 @@ impl XImage {
 }
 
 impl XImage {
-    pub fn from_image(format: XImageFormatEnum, image: RgbaImage) -> Option<XImage> {
+    pub fn from_image(format: XImageFormatEnum, image: RgbaImage) -> XImage {
         let image = image::DynamicImage::ImageRgba8(image);
         let mut bytes = Vec::new();
 
@@ -63,17 +67,10 @@ impl XImage {
             let cursor = Cursor::new(&mut bytes);
             let mut writer = BufWriter::new(cursor);
             let format = format.to_image_output_format();
-            let result = image.write_to(&mut writer, format);
-            if let Err(_) = result {
-                return None;
-            }
+            image.write_to(&mut writer, format).unwrap();
         }
 
         let image = to_rgba_image(image);
-        Some(Self {
-            image,
-            bytes,
-            format,
-        })
+        Self { image, bytes, format }
     }
 }
