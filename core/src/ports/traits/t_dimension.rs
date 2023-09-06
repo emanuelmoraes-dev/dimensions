@@ -1,6 +1,6 @@
 use std::any::Any;
 
-use crate::ports::models::location::Location;
+use crate::ports::models::m_location::Location;
 
 use super::t_id::TOptId;
 

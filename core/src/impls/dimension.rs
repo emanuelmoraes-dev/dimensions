@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::ports::models::location::Location;
+use crate::ports::models::m_location::Location;
 use crate::ports::traits::t_dimension::TDimension;
 use crate::ports::traits::t_id::TOptId;
 

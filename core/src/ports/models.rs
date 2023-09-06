@@ -1,4 +1,4 @@
-pub mod style;
-pub mod itens;
-pub mod location;
-pub mod subjects;
+pub mod m_style;
+pub mod m_itens;
+pub mod m_location;
+pub mod m_subjects;

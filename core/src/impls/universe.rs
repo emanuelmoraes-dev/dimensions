@@ -1,4 +1,4 @@
-use crate::ports::models::subjects::Player;
+use crate::ports::models::m_subjects::Player;
 
 use super::config::Config;
 use super::dimension::Dimension;

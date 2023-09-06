@@ -1,4 +1,4 @@
-use crate::ports::models::style::{TextStyle, AlignEnum};
+use crate::ports::models::m_style::{TextStyle, AlignEnum};
 
 pub trait TImageGen<I> {
     fn combine(&self, bg_color: &[u8; 4], align_x: &AlignEnum, align_y: &AlignEnum, images: Vec<&I>) -> I;

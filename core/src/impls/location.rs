@@ -1,5 +1,5 @@
-use crate::ports::models::location::Location;
-use crate::ports::models::location::LocationTypeEnum;
+use crate::ports::models::m_location::Location;
+use crate::ports::models::m_location::LocationTypeEnum;
 use crate::ports::traits::t_id::TId;
 
 impl TId for LocationTypeEnum {

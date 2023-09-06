@@ -4,7 +4,7 @@ use super::config::i18n::I18nSubjectAttr;
 use super::dimension::Dimension;
 use super::meta::Meta;
 use super::universe::Universe;
-use crate::ports::models::subjects::{
+use crate::ports::models::m_subjects::{
     Inventory, Npc, Player, Subject, SubjectAttr, SubjectAttrTypeEnum,
 };
 use crate::ports::traits::t_creator::TCreator;

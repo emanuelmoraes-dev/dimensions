@@ -1,7 +1,7 @@
 use wasm_bindgen::prelude::*;
 
 use crate::assets::fonts::Fonts;
-use crate::ports::models::style::{TextStyle, AlignEnum};
+use crate::ports::models::m_style::{TextStyle, AlignEnum};
 
 use super::x_color::XColor;
 use super::x_font::XFontsEnum;

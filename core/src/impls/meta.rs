@@ -1,4 +1,4 @@
-use crate::ports::models::location::LocationTypeEnum;
+use crate::ports::models::m_location::LocationTypeEnum;
 
 use super::feedstock::Feedstock;
 use super::roles::NpcRole;

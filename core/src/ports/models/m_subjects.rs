@@ -1,4 +1,4 @@
-use super::itens::Item;
+use super::m_itens::Item;
 use crate::ports::traits::t_role::TNpcRole;
 
 pub enum SubjectAttrTypeEnum {

@@ -1,7 +1,7 @@
 use image::{ImageBuffer, Rgba, RgbaImage};
 use rusttype::Font;
 
-use crate::ports::models::style::{TextStyle, AlignEnum};
+use crate::ports::models::m_style::{TextStyle, AlignEnum};
 use crate::ports::traits::t_gen::TImageGen;
 
 use imageproc::drawing::{draw_text_mut, text_size};
