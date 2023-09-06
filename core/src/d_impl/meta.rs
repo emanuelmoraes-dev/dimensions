@@ -1,7 +1,5 @@
 use crate::ports::models::location::LocationTypeEnum;
-use crate::ports::traits::t_meta::TMeta;
 
-use super::dimension::Dimension;
 use super::feedstock::Feedstock;
 use super::roles::NpcRole;
 use super::stock::Stock;
@@ -19,11 +17,5 @@ impl Meta {
             location_types,
             npc_roles,
         }
-    }
-}
-
-impl TMeta<Dimension> for Meta {
-    fn generate_dimension(&self) -> Dimension {
-        panic!("Not implemented")
     }
 }

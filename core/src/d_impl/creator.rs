@@ -1,5 +1,9 @@
+use super::config::Config;
 use super::config::creator_config::CreatorConfig;
 use super::config::i18n::I18nSubjectAttr;
+use super::dimension::Dimension;
+use super::meta::Meta;
+use super::universe::Universe;
 use crate::ports::models::subjects::{
     Inventory, Npc, Player, Subject, SubjectAttr, SubjectAttrTypeEnum,
 };
@@ -8,17 +12,19 @@ use crate::ports::traits::t_role::TNpcRole;
 
 pub struct Creator {
     pub config: CreatorConfig,
+    pub meta: Meta
 }
 
 impl Creator {
-    pub fn new() -> Self {
-        Self {
-            config: CreatorConfig::new(),
-        }
+    pub fn new(config: CreatorConfig, meta: Meta) -> Self {
+        Self { config, meta }
+    }
+    pub fn create_universe(&self, config: Config, player: Player) -> Universe {
+        Universe::new(config, player)
     }
 }
 
-impl TCreator for Creator {
+impl TCreator<Dimension> for Creator {
     fn create_player(&self, nickname: String, description: String) -> Player {
         Player {
             subject: new_subject(&self.config),
@@ -33,6 +39,10 @@ impl TCreator for Creator {
             name,
             description,
         }
+    }
+
+    fn create_dimension(&self) -> Dimension {
+        todo!("create_dimension")
     }
 }
 

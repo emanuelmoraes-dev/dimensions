@@ -6,7 +6,7 @@ use crate::ports::traits::t_id::TOptId;
 
 pub struct Dimension {
     pub id: Option<&'static str>,
-    pub locations: HashMap<(usize, usize), Location>,
+    pub locations: HashMap<(i32, i32), Location>,
 }
 
 impl TOptId for Dimension {
@@ -19,13 +19,13 @@ impl TDimension for Dimension {
     fn as_any(&self) -> &dyn std::any::Any {
         self
     }
-    fn move_to(&self, x: usize, y: usize) -> Option<&Location> {
+    fn get_location(&self, x: i32, y: i32) -> Option<&Location> {
         if let Some(location) = self.locations.get(&(x, y)) {
             return Some(location);
         }
         None
     }
-    fn add_to(&mut self, x: usize, y: usize, location: Location) {
+    fn add_location(&mut self, x: i32, y: i32, location: Location) {
         self.locations.insert((x, y), location);
     }
 }
