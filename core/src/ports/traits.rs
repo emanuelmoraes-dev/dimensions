@@ -5,4 +5,3 @@ pub mod t_gen;
 pub mod t_id;
 pub mod t_role;
 pub mod t_stock;
-pub mod t_universe;
