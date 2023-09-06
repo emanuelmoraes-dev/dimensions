@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 
-use crate::dimpl::universe::Universe;
+use crate::d_impl::universe::Universe;
 
 #[wasm_bindgen]
 pub struct XCore {
