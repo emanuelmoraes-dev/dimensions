@@ -1,5 +1,5 @@
 pub mod assets;
-pub mod d_impl;
+pub mod impls;
 pub mod export;
 pub mod js;
 pub mod ports;

@@ -1,12 +1,12 @@
 use wasm_bindgen::prelude::*;
 
-use crate::d_impl::config::Config;
+use crate::impls::config::Config;
 use crate::ports::traits::t_creator::TCreator;
 
-use crate::d_impl::universe::Universe;
-use crate::d_impl::creator::Creator;
-use crate::d_impl::config::creator_config::CreatorConfig;
-use crate::d_impl::meta::Meta;
+use crate::impls::universe::Universe;
+use crate::impls::creator::Creator;
+use crate::impls::config::creator_config::CreatorConfig;
+use crate::impls::meta::Meta;
 
 #[wasm_bindgen]
 pub struct XCore {
