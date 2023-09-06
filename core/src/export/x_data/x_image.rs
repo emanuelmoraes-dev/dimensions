@@ -2,7 +2,7 @@ use wasm_bindgen::prelude::*;
 use std::io::{BufWriter, Cursor};
 use image::{ImageOutputFormat, RgbaImage, ImageFormat};
 
-use crate::util::image_util::to_rgba_image;
+use crate::util::u_image::to_rgba_image;
 
 #[wasm_bindgen]
 #[derive(Clone, Copy)]
