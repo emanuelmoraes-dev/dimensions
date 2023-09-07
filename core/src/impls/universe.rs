@@ -1,20 +1,20 @@
 use crate::ports::models::m_subjects::Player;
 
 use super::config::Config;
-use super::dimension::Dimension;
+use super::map::Map;
 use super::stock::Stock;
 
 pub struct Universe {
     pub config: Config,
     pub player: Player,
-    pub maps: Stock<Dimension>,
-    pub current_map: Dimension,
+    pub maps: Stock<Map>,
+    pub current_map: Map,
 }
 
 impl Universe {
     pub fn new(config: Config, player: Player) -> Self {
-        let maps: Stock<Dimension> = Stock::new();
-        let current_map: Dimension = Dimension::new(None);
+        let maps: Stock<Map> = Stock::new();
+        let current_map: Map = Map::new(None);
         Self {
             config,
             player,

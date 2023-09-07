@@ -3,7 +3,7 @@ use wasm_bindgen::prelude::*;
 
 use crate::export::x_core::XCore;
 use crate::export::x_data::x_image::{XImage, XImageFormatEnum};
-use crate::ports::operations::o_dimensions::move_location;
+use crate::ports::operations::o_map::move_location;
 
 #[wasm_bindgen]
 pub struct XMap;

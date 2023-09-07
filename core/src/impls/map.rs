@@ -4,28 +4,28 @@ use std::rc::Rc;
 use image::RgbaImage;
 
 use crate::ports::models::m_location::Location;
-use crate::ports::traits::t_dimension::TDimension;
+use crate::ports::traits::t_map::TMap;
 use crate::ports::traits::t_id::TOptId;
 
-pub struct Dimension {
+pub struct Map {
     pub id: Option<&'static str>,
     pub locations: HashMap<(i32, i32), Rc<Location<RgbaImage>>>,
 }
 
-impl Dimension {
-    pub fn new(id: Option<&'static str>) -> Dimension {
+impl Map {
+    pub fn new(id: Option<&'static str>) -> Map {
         let locations = HashMap::new();
-        Dimension { id, locations }
+        Map { id, locations }
     }
 }
 
-impl TOptId for Dimension {
+impl TOptId for Map {
     fn id(&self) -> Option<&str> {
         self.id
     }
 }
 
-impl TDimension<RgbaImage> for Dimension {
+impl TMap<RgbaImage> for Map {
     fn as_any(&self) -> &dyn std::any::Any {
         self
     }

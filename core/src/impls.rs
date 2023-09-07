@@ -1,6 +1,6 @@
 pub mod config;
 pub mod creator;
-pub mod dimension;
+pub mod map;
 pub mod feedstock;
 pub mod gen;
 pub mod location;

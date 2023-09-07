@@ -4,7 +4,7 @@ use self::subject_creator::new_subject;
 
 use super::config::Config;
 use super::config::creator_config::CreatorConfig;
-use super::dimension::Dimension;
+use super::map::Map;
 use super::gen::Gen;
 use super::meta::Meta;
 use super::universe::Universe;
@@ -47,7 +47,7 @@ impl Creator {
     }
 }
 
-impl TCreator<RgbaImage, Dimension> for Creator {
+impl TCreator<RgbaImage, Map> for Creator {
     fn create_player(&self, nickname: String, description: String) -> Player {
         Player {
             subject: new_subject(&self.config),
@@ -70,8 +70,8 @@ impl TCreator<RgbaImage, Dimension> for Creator {
         let image = self.gen.image().text(&color, width, height, text_style, ltype.id());
         Location::new(ltype, image, None)
     }
-    fn create_dimension(&self) -> Dimension {
-        todo!("create_dimension")
+    fn create_map(&self) -> Map {
+        todo!("create_map")
     }
     fn create_npc(&self, name: String, description: String, roles: Vec<Box<dyn TNpcRole>>) -> Npc {
         Npc {

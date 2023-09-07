@@ -1,5 +1,5 @@
 pub mod t_creator;
-pub mod t_dimension;
+pub mod t_map;
 pub mod t_feedstock;
 pub mod t_gen;
 pub mod t_id;
