@@ -155,7 +155,7 @@ export class Dimensions implements IGame {
             } else {
                 // const imageBaseIndex = Math.floor(Math.random() * this.imagesBase.length)
                 // image = this.imagesBase[imageBaseIndex]
-                const ximage = XMap.moveLocation(this.core, grid.x, grid.y, grid.imageWidth, grid.imageHeight)
+                const ximage = XMap.getLocation(this.core, grid.x, grid.y, grid.imageWidth, grid.imageHeight)
 
                 if (!ximage) {
                     throw new Error('moveLocation failed')
