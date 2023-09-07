@@ -2,7 +2,7 @@ import core from 'canvas/dimensions/core.ts'
 import dom from 'canvas/ports/operations/dom.ts'
 import uobj from 'util/uobj.ts'
 import {Grid} from 'canvas/dimensions/grid.ts'
-import {XColor, XCore, XDebug, XFontsEnum, XImageFormatEnum, XImageGen, XAlignEnum, XTextStyle, XImageCombine} from 'assets/wasm/core.js'
+import {XCore, XDebug, XMap} from 'assets/wasm/core.js'
 import {IGame} from 'canvas/ports/i-game.ts'
 import {ICanvas} from 'canvas/ports/i-obj.ts'
 import {IGameConfig} from 'canvas/ports/i-config.ts'
@@ -45,7 +45,7 @@ export class Dimensions implements IGame {
     private lastTime: number = new Date().getTime()
     private countTime = 0
     private images: HTMLImageElement[] = []
-    private imagesBase!: HTMLImageElement[]
+    // private imagesBase!: HTMLImageElement[]
 
     readonly maxCountTime = 5000
     readonly colors = ['red', 'green', 'blue', 'orange', 'purple', 'brown', 'black']
@@ -73,31 +73,31 @@ export class Dimensions implements IGame {
         //         '</svg>'
         //     return image
         // })
-        this.imagesBase = this.colors.map(colorName => {
-            const color = new XColor(colorNameToUint8Array(colorName))
-            const width = this.grid.imageWidth
-            const height = this.grid.imageHeight
-            const imgBg = XImageGen.color(this.core, XImageFormatEnum.Png, color, width, height)
+        // this.imagesBase = this.colors.map(colorName => {
+        //     const color = new XColor(colorNameToUint8Array(colorName))
+        //     const width = this.grid.imageWidth
+        //     const height = this.grid.imageHeight
+        //     const imgBg = XImageGen.color(this.core, XImageFormatEnum.Png, color, width, height)
 
-            const alpha = new XColor(new Uint8Array([0, 0, 0, 0]))
-            const white = new XColor(colorNameToUint8Array('white'))
-            const textStyle = new XTextStyle(white, XFontsEnum.RobotoBold, 30, XAlignEnum.Center, XAlignEnum.Center, 0, 0)
-            const text = colorName[0].toUpperCase() + colorName[colorName.length - 1].toUpperCase()
-            const imgText = XImageGen.text(this.core, XImageFormatEnum.Png, alpha, width, height, textStyle, text)
+        //     const alpha = new XColor(new Uint8Array([0, 0, 0, 0]))
+        //     const white = new XColor(colorNameToUint8Array('white'))
+        //     const textStyle = new XTextStyle(white, XFontsEnum.RobotoBold, 30, XAlignEnum.Center, XAlignEnum.Center, 0, 0)
+        //     const text = colorName[0].toUpperCase() + colorName[colorName.length - 1].toUpperCase()
+        //     const imgText = XImageGen.text(this.core, XImageFormatEnum.Png, alpha, width, height, textStyle, text)
 
-            const ximage = XImageCombine.combine2(this.core, XImageFormatEnum.Png, white, XAlignEnum.Center, XAlignEnum.Center, imgBg, imgText)
+        //     const ximage = XImageCombine.combine2(this.core, XImageFormatEnum.Png, white, XAlignEnum.Center, XAlignEnum.Center, imgBg, imgText)
 
-            if (!ximage) {
-                throw new Error('combine failed')
-            }
+        //     if (!ximage) {
+        //         throw new Error('combine failed')
+        //     }
 
-            const data = ximage.data()
-            const blob = new Blob([data], {type: 'image/png'})
-            const imageUrl = URL.createObjectURL(blob)
-            const image = new Image()
-            image.src = imageUrl
-            return image
-        })
+        //     const data = ximage.data()
+        //     const blob = new Blob([data], {type: 'image/png'})
+        //     const imageUrl = URL.createObjectURL(blob)
+        //     const image = new Image()
+        //     image.src = imageUrl
+        //     return image
+        // })
     }
 
     draw(): void {
@@ -153,8 +153,19 @@ export class Dimensions implements IGame {
             if (imageIndex < this.images.length) {
                 image = this.images[imageIndex]
             } else {
-                const imageBaseIndex = Math.floor(Math.random() * this.imagesBase.length)
-                image = this.imagesBase[imageBaseIndex]
+                // const imageBaseIndex = Math.floor(Math.random() * this.imagesBase.length)
+                // image = this.imagesBase[imageBaseIndex]
+                const ximage = XMap.moveLocation(this.core, grid.x, grid.y, grid.imageWidth, grid.imageHeight)
+
+                if (!ximage) {
+                    throw new Error('moveLocation failed')
+                }
+
+                const data = ximage.data()
+                const blob = new Blob([data], {type: 'image/png'})
+                const imageUrl = URL.createObjectURL(blob)
+                image = new Image()
+                image.src = imageUrl
             }
 
             if (grid.draw(this.canvas, image, imageWidth, imageHeight)) {

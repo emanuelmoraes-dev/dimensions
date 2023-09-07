@@ -59,7 +59,8 @@ impl XImage {
 }
 
 impl XImage {
-    pub fn from_image(format: XImageFormatEnum, image: RgbaImage) -> XImage {
+    pub fn from_image(format: XImageFormatEnum, image: &RgbaImage) -> XImage {
+        let image = image.clone();
         let image = image::DynamicImage::ImageRgba8(image);
         let mut bytes = Vec::new();
 

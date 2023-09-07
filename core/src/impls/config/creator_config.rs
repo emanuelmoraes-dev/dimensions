@@ -1,3 +1,5 @@
+use crate::assets::fonts::Fonts;
+
 use super::i18n::I18n;
 
 pub struct DefaultConfigValues {
@@ -21,6 +23,7 @@ impl DefaultConfigValues {
 pub struct CreatorConfig {
     pub default: DefaultConfigValues,
     pub i18n: I18n,
+    pub fonts: Fonts,
 }
 
 impl CreatorConfig {
@@ -28,6 +31,7 @@ impl CreatorConfig {
         Self {
             default: DefaultConfigValues::new(),
             i18n: I18n::new(),
+            fonts: Fonts::new()
         }
     }
 }

@@ -13,11 +13,11 @@ fn combine_vec(x: &XCore, format: XImageFormatEnum, bg_color: &XColor, align_x: 
     let align_x = align_x.to_align();
     let align_y = align_y.to_align();
     let image = x
-        .universe
+        .creator
         .gen
         .image()
         .combine(&bg_color, &align_x, &align_y, images);
-    XImage::from_image(format, image)
+    XImage::from_image(format, &image)
 }
 
 #[wasm_bindgen]

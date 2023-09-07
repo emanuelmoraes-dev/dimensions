@@ -4,28 +4,19 @@ use crate::ports::traits::t_dimension::TDimension;
 pub enum LocationTypeEnum {
     Ground,
     Cave,
-    Wall {
-        quantity: u32,
-    },
-    Gram {
-        quantity: u32,
-        min_xratio: f32,
-        max_xratio: f32,
-    },
-    River {
-        quantity: u32,
-        min_xratio: f32,
-        max_xratio: f32,
-    },
+    Wall,
+    Gram,
+    River
 }
 
-pub struct Location {
+pub struct Location<I> {
     pub ltype: LocationTypeEnum,
-    pub teleport_to: Option<Box<dyn TDimension>>,
+    pub image: I,
+    pub teleport_to: Option<Box<dyn TDimension<I>>>
 }
 
-impl Location {
-    pub fn new(ltype: LocationTypeEnum, teleport_to: Option<Box<dyn TDimension>>) -> Self {
-        Self { ltype, teleport_to }
+impl<I> Location<I> {
+    pub fn new(ltype: LocationTypeEnum, image: I, teleport_to: Option<Box<dyn TDimension<I>>>) -> Self {
+        Self { ltype, image, teleport_to }
     }
 }
