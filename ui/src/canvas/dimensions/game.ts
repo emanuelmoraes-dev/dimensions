@@ -7,6 +7,7 @@ import {IGame} from 'canvas/ports/i-game.ts'
 import {ICanvas} from 'canvas/ports/i-obj.ts'
 import {IGameConfig} from 'canvas/ports/i-config.ts'
 import {DeepPartial} from 'types'
+import {Animation} from 'util/u-animation.ts';
 
 const buildParent = (parent: string | HTMLElement): HTMLElement => {
     if (typeof parent === 'string') {
@@ -45,11 +46,8 @@ export class Dimensions implements IGame {
     grid!: Grid
 
     private core!: XCore
-    private lastTime: number = new Date().getTime()
-    private countTime = 0
     private images: HTMLImageElement[] = []
-
-    readonly maxCountTime = 5000
+    private animation!: Animation
 
     constructor(
         public id: string,
@@ -60,6 +58,7 @@ export class Dimensions implements IGame {
         this.config = buildGameConfig(config)
         this.parent = buildParent(this.config.parent)
         this.canvas = dom.createCanvas(this.parent, this.id)
+        this.animation = new Animation(5000)
     }
 
     async setup(): Promise<void> {
@@ -70,12 +69,7 @@ export class Dimensions implements IGame {
     }
 
     draw(): void {
-        const diffTime = new Date().getTime() - this.lastTime
-        this.lastTime = new Date().getTime()
-        this.countTime += diffTime
-        if (this.countTime > this.maxCountTime) {
-            this.countTime = 0
-        }
+        this.animation.tick()
 
         const canvas = this.canvas
         const context = canvas.context
@@ -93,7 +87,7 @@ export class Dimensions implements IGame {
         let imagesMaxLength: number
 
         if (this.images.length > 0) {
-            imagesMaxLength = Math.floor(this.images.length * (this.countTime / this.maxCountTime)) * 1.3
+            imagesMaxLength = Math.floor(this.images.length * this.animation.percent * 1.3)
         } else {
             imagesMaxLength = Number.MAX_SAFE_INTEGER
         }
