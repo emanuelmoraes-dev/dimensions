@@ -1,4 +1,6 @@
-export type obj = {[k: string]: unknown}
+export interface obj {
+    [k: string]: unknown
+}
 
 export type IsNot<T, N> = T extends N ? never : T
 export type IsPrimitiveObj<T> = T extends obj ? {

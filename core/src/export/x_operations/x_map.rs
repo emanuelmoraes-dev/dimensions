@@ -4,6 +4,7 @@ use wasm_bindgen::prelude::*;
 use crate::export::x_core::XCore;
 use crate::export::x_data::x_image::{XImage, XImageFormatEnum};
 use crate::ports::operations::o_map::get_location;
+use crate::ports::traits::t_map::TMap;
 
 #[wasm_bindgen]
 pub struct XMap;
@@ -19,5 +20,17 @@ impl XMap {
         } else {
             None
         }
+    }
+    pub fn remove_location(core: &mut XCore, x: i32, y: i32) -> Option<XImage> {
+        let location = core.universe.current_map.remove_location(x, y);
+        if let Some(location) = location {
+            let image: &RgbaImage = &location.image;
+            Some(XImage::from_image(XImageFormatEnum::Png, image))
+        } else {
+            None
+        }
+    }
+    pub fn clear(core: &mut XCore) {
+        core.universe.current_map.clear();
     }
 }

@@ -38,4 +38,10 @@ impl TMap<RgbaImage> for Map {
     fn add_location(&mut self, x: i32, y: i32, location: Location<RgbaImage>) {
         self.locations.insert((x, y), Rc::from(location));
     }
+    fn remove_location(&mut self, x: i32, y: i32) -> Option<Rc<Location<RgbaImage>>> {
+        self.locations.remove(&(x, y))
+    }
+    fn clear(&mut self) {
+        self.locations.clear();
+    }
 }

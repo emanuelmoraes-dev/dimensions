@@ -2,12 +2,13 @@ import core from 'canvas/dimensions/core.ts'
 import dom from 'canvas/ports/operations/dom.ts'
 import uobj from 'util/u-obj.ts'
 import {Grid} from 'canvas/dimensions/grid.ts'
-import {XCore, XDebug, XMap} from 'assets/wasm/core.js'
+import {XCore, XDebug} from 'assets/wasm/core.js'
 import {IGame} from 'canvas/ports/i-game.ts'
 import {ICanvas} from 'canvas/ports/i-obj.ts'
 import {IGameConfig} from 'canvas/ports/i-config.ts'
 import {DeepPartial} from 'types'
-import {Animation} from 'util/u-animation.ts';
+import {Animation} from 'util/u-animation.ts'
+import {MapImages} from 'canvas/dimensions/map-images.ts'
 
 const buildParent = (parent: string | HTMLElement): HTMLElement => {
     if (typeof parent === 'string') {
@@ -36,8 +37,6 @@ const buildGameConfig = (config: DeepPartial<IGameConfig>): IGameConfig => ({
 })
 
 export class Dimensions implements IGame {
-    parent!: HTMLElement
-
     width!: number
     height!: number
 
@@ -46,8 +45,8 @@ export class Dimensions implements IGame {
     grid!: Grid
 
     private core!: XCore
-    private images: HTMLImageElement[] = []
     private animation!: Animation
+    private map!: MapImages
 
     constructor(
         public id: string,
@@ -56,16 +55,22 @@ export class Dimensions implements IGame {
         config: DeepPartial<IGameConfig>
     ) {
         this.config = buildGameConfig(config)
-        this.parent = buildParent(this.config.parent)
-        this.canvas = dom.createCanvas(this.parent, this.id)
+        this.canvas = dom.createCanvas(buildParent(this.config.parent), this.id)
         this.animation = new Animation(5000)
     }
 
     async setup(): Promise<void> {
         this.core = await core.init(this.nickname, this.description)
-        XDebug.showCharacter(this.core)
         dom.append(this.canvas)
-        this.grid = Grid.build(this)
+
+        this.map = new MapImages(this.core)
+        this.grid = Grid.build(this.canvas, this.config.grid)
+
+        XDebug.showCharacter(this.core)
+
+        // setInterval(() => {
+        //     this.map.clear()
+        // }, 3000);
     }
 
     draw(): void {
@@ -84,49 +89,23 @@ export class Dimensions implements IGame {
         const maxCanvasSize = Math.max(canvasWidth, canvasHeight)
         const maxDeep = Math.floor(maxCanvasSize / maxImageSize) + 2
 
-        let imagesMaxLength: number
-
-        if (this.images.length > 0) {
-            imagesMaxLength = Math.floor(this.images.length * this.animation.percent * 1.3)
-        } else {
-            imagesMaxLength = Number.MAX_SAFE_INTEGER
-        }
-
         let drawn = false
         let grid = this.grid
-        let lastDeep = Math.min(grid.deepWidth, grid.deepHeight)
-        let imageIndex = 0
-        while (Math.min(grid.deepWidth, grid.deepHeight) <= maxDeep && imageIndex < imagesMaxLength) {
-            let image: HTMLImageElement
-
-            if (imageIndex < this.images.length) {
-                image = this.images[imageIndex]
-            } else {
-                const ximage = XMap.getLocation(this.core, grid.x, grid.y, grid.imageWidth, grid.imageHeight)
-
-                if (!ximage) {
-                    throw new Error('moveLocation failed')
-                }
-
-                const data = ximage.data()
-                const blob = new Blob([data], {type: 'image/png'})
-                const imageUrl = URL.createObjectURL(blob)
-                image = new Image()
-                image.src = imageUrl
-            }
+        let lastDeep = grid.minDeep
+        while (grid.minDeep <= maxDeep) {
+            const image = this.map.getImage(grid)
 
             if (grid.draw(this.canvas, image, imageWidth, imageHeight)) {
                 drawn = true
-                if (imageIndex >= this.images.length) {
-                    this.images.push(image)
-                }
-                imageIndex++
+                this.map.mark(grid, {drawn: true})
+            } else {
+                this.map.mark(grid, {drawn: false})
             }
 
             grid = grid.next()
 
-            if (Math.min(grid.deepWidth, grid.deepHeight) > lastDeep) {
-                lastDeep = Math.min(grid.deepWidth, grid.deepHeight)
+            if (grid.minDeep > lastDeep) {
+                lastDeep = grid.minDeep
 
                 if (!drawn) {
                     break

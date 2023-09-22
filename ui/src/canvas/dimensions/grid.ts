@@ -1,7 +1,7 @@
 import umath from 'util/u-math.ts'
 import {IGrid} from 'canvas/ports/i-grid.ts'
-import {IGame} from 'canvas/ports/i-game.ts'
 import {ICanvas} from 'canvas/ports/i-obj.ts'
+import {IGridConfig} from 'canvas/ports/i-config.ts'
 
 enum DirectionEnum {
     Left,
@@ -52,6 +52,17 @@ const isVertical = (d: DirectionEnum): boolean => {
 
 const isHorizontal = (d: DirectionEnum): boolean => !isVertical(d)
 
+interface DrawParams {
+    sx: number
+    sy: number
+    sWidth: number
+    sHeight: number
+    dx: number
+    dy: number
+    dWidth: number
+    dHeight: number
+}
+
 export class Grid implements IGrid {
     constructor(
         public imageWidth: number,
@@ -64,6 +75,10 @@ export class Grid implements IGrid {
         public deepHeight: number,
         public direction: DirectionEnum
     ) {}
+
+    get minDeep(): number {
+        return Math.min(this.deepWidth, this.deepHeight)
+    }
 
     next(): Grid {
         let nextPositionWidth = this.positionWidth
@@ -95,7 +110,7 @@ export class Grid implements IGrid {
         return new Grid(this.imageWidth, this.imageHeight, nx, ny, nextPositionWidth, nextPositionHeight, nextDeepWidth, nextDeepHeight, nextDirection)
     }
 
-    draw(canvas: ICanvas, image: CanvasImageSource, imageWidth: number, imageHeight: number): boolean {
+    private calcDrawParams(canvas: ICanvas, image: CanvasImageSource, imageWidth: number, imageHeight: number): DrawParams {
         const canvasWidth = canvas.element.width
         const canvasHeight = canvas.element.height
 
@@ -114,10 +129,6 @@ export class Grid implements IGrid {
         const dx = Math.max(0, odx)
         const dy = Math.max(0, ody)
 
-        if (dx > canvasWidth || dy > canvasHeight) {
-            return false
-        }
-
         const dxDiff = dx - odx
         const dyDiff = dy - ody
 
@@ -127,24 +138,39 @@ export class Grid implements IGrid {
         const sWidth = imageWidth - sx
         const sHeight = imageHeight - sy
 
-        if (sWidth <= 0 || sHeight <= 0) {
-            return false
-        }
-
         const dWidth = this.imageWidth - dxDiff
         const dHeight = this.imageHeight - dyDiff
 
-        if (dWidth <= 0 || dHeight <= 0) {
+        return {sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight}
+    }
+
+    private validateDrawParams(drawParams: DrawParams, canvasWidth: number, canvasHeight: number): boolean {
+        const {sWidth, sHeight, dx, dy, dWidth, dHeight} = drawParams
+        return !(dx > canvasWidth || dy > canvasHeight || sWidth <= 0 || sHeight <= 0 || dWidth <= 0 || dHeight <= 0)
+    }
+
+    canDraw(canvas: ICanvas, image: CanvasImageSource, imageWidth: number, imageHeight: number): boolean {
+        const canvasWidth = canvas.element.width
+        const canvasHeight = canvas.element.height
+        const drawParams = this.calcDrawParams(canvas, image, imageWidth, imageHeight)
+        return this.validateDrawParams(drawParams, canvasWidth, canvasHeight)
+    }
+
+    draw(canvas: ICanvas, image: CanvasImageSource, imageWidth: number, imageHeight: number): boolean {
+        const canvasWidth = canvas.element.width
+        const canvasHeight = canvas.element.height
+        const drawParams = this.calcDrawParams(canvas, image, imageWidth, imageHeight)
+
+        if (!this.validateDrawParams(drawParams, canvasWidth, canvasHeight)) {
             return false
         }
 
+        const {sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight} = drawParams
         canvas.context.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
         return true
     }
 
-    static build(game: IGame): Grid {
-        const config = game.config.grid
-        const canvas = game.canvas
+    static build(canvas: ICanvas, config: IGridConfig): Grid {
         const gameWidth = canvas.element.width
         const gameHeigth = canvas.element.height
         const gameMaxSize = Math.max(gameWidth, gameHeigth)
