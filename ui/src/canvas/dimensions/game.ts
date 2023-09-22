@@ -50,7 +50,7 @@ export class Dimensions implements IGame {
 
     async setup(): Promise<void> {
         this.core = await core.init(this.nickname, this.description)
-        XDebug.show_character(this.core)
+        XDebug.showCharacter(this.core)
         dom.append(this.canvas)
         this.grid = Grid.build(this)
     }

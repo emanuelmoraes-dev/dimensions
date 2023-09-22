@@ -7,7 +7,7 @@ pub struct XDebug;
 
 #[wasm_bindgen]
 impl XDebug {
-    #[wasm_bindgen]
+    #[wasm_bindgen(js_name = showCharacter)]
     pub fn show_character(x: &XCore) {
         let player = &x.universe.player;
         console::log(&format!("Nickname: {}", player.nickname));
