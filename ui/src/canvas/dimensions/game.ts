@@ -1,6 +1,6 @@
 import core from 'canvas/dimensions/core.ts'
 import dom from 'canvas/ports/operations/dom.ts'
-import uobj from 'util/uobj.ts'
+import uobj from 'util/u-obj.ts'
 import {Grid} from 'canvas/dimensions/grid.ts'
 import {XCore, XDebug, XMap} from 'assets/wasm/core.js'
 import {IGame} from 'canvas/ports/i-game.ts'

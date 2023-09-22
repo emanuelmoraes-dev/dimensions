@@ -1,4 +1,4 @@
-import umath from 'util/umath.ts'
+import umath from 'util/u-math.ts'
 import {IGrid} from 'canvas/ports/i-grid.ts'
 import {IGame} from 'canvas/ports/i-game.ts'
 import {ICanvas} from 'canvas/ports/i-obj.ts'
