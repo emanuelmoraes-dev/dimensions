@@ -8,7 +8,19 @@ import {ICanvas} from 'canvas/ports/i-obj.ts'
 import {IGameConfig} from 'canvas/ports/i-config.ts'
 import {DeepPartial} from 'types'
 
+const buildParent = (parent: string | HTMLElement): HTMLElement => {
+    if (typeof parent === 'string') {
+        const element = document.getElementById(parent)
+        if (!element) {
+            throw new Error(`Element with id "${parent}" not found`)
+        }
+        return element
+    }
+    return parent
+}
+
 const buildGameConfig = (config: DeepPartial<IGameConfig>): IGameConfig => ({
+    parent: config.parent || document.body,
     grid: uobj.setDefault(config.grid ?? {}, {
         minImageWidth: 70,
         maxImageWidth: 100,
@@ -23,6 +35,8 @@ const buildGameConfig = (config: DeepPartial<IGameConfig>): IGameConfig => ({
 })
 
 export class Dimensions implements IGame {
+    parent!: HTMLElement
+
     width!: number
     height!: number
 
@@ -36,7 +50,6 @@ export class Dimensions implements IGame {
     private images: HTMLImageElement[] = []
 
     readonly maxCountTime = 5000
-    readonly colors = ['red', 'green', 'blue', 'orange', 'purple', 'brown', 'black']
 
     constructor(
         public id: string,
@@ -45,7 +58,8 @@ export class Dimensions implements IGame {
         config: DeepPartial<IGameConfig>
     ) {
         this.config = buildGameConfig(config)
-        this.canvas = dom.createCanvas(this.id)
+        this.parent = buildParent(this.config.parent)
+        this.canvas = dom.createCanvas(this.parent, this.id)
     }
 
     async setup(): Promise<void> {

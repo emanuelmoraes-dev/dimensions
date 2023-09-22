@@ -4,7 +4,7 @@ import runner from 'canvas/runner.ts'
 import dom from 'canvas/ports/operations/dom.ts'
 import udom from 'util/udom.ts'
 
-const game = Dimensions.build('dimensions')
+const game = Dimensions.build('dimensions', { parent: 'app' })
 udom.onload(() => {
     dom.autoFullSize(game)
     return runner.run(game)

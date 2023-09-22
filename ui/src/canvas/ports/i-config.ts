@@ -1,4 +1,5 @@
 export interface IGameConfig {
+    parent: string | HTMLElement
     grid: IGridConfig
 }
 

@@ -6,12 +6,11 @@ export default {
     append(...elements: IElement[]): void {
         elements.forEach(e => e.parent.appendChild(e.element))
     },
-    createCanvas(id: string): ICanvas {
+    createCanvas(parent: HTMLElement, id: string): ICanvas {
         const element = document.createElement('canvas')
         element.id = id
         return {
-            id,
-            parent: document.body,
+            id, parent,
             element: element,
             context: element.getContext('2d') as CanvasRenderingContext2D
         }
