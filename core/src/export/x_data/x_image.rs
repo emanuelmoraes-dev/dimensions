@@ -7,7 +7,7 @@ use crate::util::u_image::to_rgba_image;
 #[wasm_bindgen]
 #[derive(Clone, Copy)]
 pub enum XImageFormatEnum {
-    Png,
+    Png
 }
 
 impl XImageFormatEnum {
