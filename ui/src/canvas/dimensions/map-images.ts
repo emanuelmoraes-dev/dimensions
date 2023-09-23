@@ -8,7 +8,7 @@ type MapCoords = {
     }
 }
 
-type MapDrawn = {
+type MapState = {
     [index: number]: State | undefined
 }
 
@@ -19,7 +19,7 @@ export interface State extends obj {
 export class MapImages {
     private images: HTMLImageElement[] = []
     private mapping: MapCoords = {}
-    private mappingState: MapDrawn = {}
+    private mappingState: MapState = {}
 
     constructor(
         private core: XCore
