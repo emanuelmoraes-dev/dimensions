@@ -92,7 +92,7 @@ export class Dimensions implements IGame {
         let grid = this.grid
         let lastDeep = grid.minDeep
         while (grid.minDeep <= maxDeep) {
-            const image = this.map.getImage(grid)
+            const image = this.map.getProcessedImage(grid)
 
             let canDraw: boolean
 

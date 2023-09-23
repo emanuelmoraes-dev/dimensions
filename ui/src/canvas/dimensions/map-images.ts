@@ -39,7 +39,7 @@ export class MapImages {
         }, 0)
     }
 
-    getImage(grid: Grid): HTMLImageElement {
+    getProcessedImage(grid: Grid): HTMLImageElement {
         if (!(grid.x in this.mapping)) {
             this.mapping[grid.x] = {}
         }
