@@ -1,5 +1,6 @@
 use wasm_bindgen::prelude::*;
 use std::io::{BufWriter, Cursor};
+use std::rc::Rc;
 use image::{ImageOutputFormat, RgbaImage, ImageFormat};
 
 use crate::util::u_image::to_rgba_image;
@@ -27,7 +28,7 @@ impl XImageFormatEnum {
 #[wasm_bindgen]
 pub struct XImage {
     #[wasm_bindgen(skip)]
-    pub image: RgbaImage,
+    pub image: Rc<RgbaImage>,
 
     #[wasm_bindgen(skip)]
     pub bytes: Vec<u8>,
@@ -45,6 +46,7 @@ impl XImage {
             Ok(image) => to_rgba_image(image),
             Err(_) => return None,
         };
+        let image = Rc::new(image);
         Some(Self {
             image,
             bytes,
@@ -59,9 +61,7 @@ impl XImage {
 }
 
 impl XImage {
-    pub fn from_image(format: XImageFormatEnum, image: &RgbaImage) -> XImage {
-        let image = image.clone();
-        let image = image::DynamicImage::ImageRgba8(image);
+    pub fn from_image(format: XImageFormatEnum, image: Rc<RgbaImage>) -> XImage {
         let mut bytes = Vec::new();
 
         {
@@ -71,7 +71,6 @@ impl XImage {
             image.write_to(&mut writer, format).unwrap();
         }
 
-        let image = to_rgba_image(image);
         Self { image, bytes, format }
     }
 }

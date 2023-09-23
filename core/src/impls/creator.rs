@@ -1,3 +1,5 @@
+use std::rc::Rc;
+
 use image::RgbaImage;
 
 use self::subject_creator::new_subject;
@@ -68,6 +70,7 @@ impl TCreator<RgbaImage, Map> for Creator {
             offset_y: 0.0
         };
         let image = self.gen.image().text(&color, width, height, text_style, ltype.id());
+        let image = Rc::new(image);
         Location::new(ltype, image, None)
     }
     fn create_map(&self) -> Map {

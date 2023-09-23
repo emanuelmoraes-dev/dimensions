@@ -1,3 +1,5 @@
+use std::rc::Rc;
+
 use image::RgbaImage;
 use wasm_bindgen::prelude::*;
 
@@ -14,7 +16,7 @@ impl XMap {
     pub fn get_location(core: &mut XCore, x: i32, y: i32, width: u32, height: u32) -> Option<XImage> {
         let location = get_location(&core.creator, &mut core.universe.current_map, x, y, width, height);
         if let Some(location) = location {
-            let image: &RgbaImage = &location.image;
+            let image: Rc<RgbaImage> = Rc::clone(&location.image);
             Some(XImage::from_image(XImageFormatEnum::Png, image))
         } else {
             None

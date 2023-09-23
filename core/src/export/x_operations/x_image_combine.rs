@@ -1,3 +1,5 @@
+use std::rc::Rc;
+
 use image::RgbaImage;
 use wasm_bindgen::prelude::*;
 
@@ -12,12 +14,9 @@ fn combine_vec(x: &XCore, format: XImageFormatEnum, bg_color: &XColor, align_x: 
     let bg_color = [bg_color.r, bg_color.g, bg_color.b, bg_color.a];
     let align_x = align_x.to_align();
     let align_y = align_y.to_align();
-    let image = x
-        .creator
-        .gen
-        .image()
-        .combine(&bg_color, &align_x, &align_y, images);
-    XImage::from_image(format, &image)
+    let image: RgbaImage = x.creator.gen.image().combine(&bg_color, &align_x, &align_y, images);
+    let image: Rc<RgbaImage> = Rc::new(image);
+    XImage::from_image(format, image)
 }
 
 #[wasm_bindgen]

@@ -12,7 +12,7 @@ struct XSerialization;
 impl XSerialization {
     #[wasm_bindgen]
     pub fn ximage(ximage: &XImage) -> JsValue {
-        let image = ximage.image.clone();
+        let image = ximage.image.as_ref().clone();
         let serialized = XImageSerialized::from(image);
         serde_wasm_bindgen::to_value(&serialized).unwrap()
     }
