@@ -79,7 +79,6 @@ export class Dimensions implements IGame {
         const canvas = this.canvas
         const canvasWidth = canvas.element.width
         const canvasHeight = canvas.element.height
-        // canvas.context.clearRect(0, 0, canvasWidth, canvasHeight)
 
         const imageWidth = this.grid.imageWidth
         const imageHeight = this.grid.imageHeight
@@ -114,7 +113,7 @@ export class Dimensions implements IGame {
             if (grid.minDeep > lastDeep) {
                 lastDeep = grid.minDeep
 
-                if (!fits) {
+                if (deep === 0 && !fits) {
                     break
                 }
 
