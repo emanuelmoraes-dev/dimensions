@@ -75,7 +75,7 @@ export class Dimensions implements IGame {
         this.processGrid(true)
     }
 
-    processGrid(draw: boolean): void {
+    processGrid(draw: boolean, deep: number = 0): void {
         const canvas = this.canvas
         const canvasWidth = canvas.element.width
         const canvasHeight = canvas.element.height
@@ -86,7 +86,7 @@ export class Dimensions implements IGame {
 
         const maxImageSize = Math.max(imageWidth, imageHeight)
         const maxCanvasSize = Math.max(canvasWidth, canvasHeight)
-        const maxDeep = Math.floor(maxCanvasSize / maxImageSize) + 2
+        const maxDeep = Math.floor(maxCanvasSize / maxImageSize) + 2 + deep
 
         let fits = false
         let grid = this.grid
