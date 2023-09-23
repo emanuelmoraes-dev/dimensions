@@ -80,7 +80,7 @@ export class MapImages {
             URL.revokeObjectURL(image.src)
         }
 
-        XMap.clear(this.core)
+        XMap.clearCurrentMap(this.core)
     }
 
     private buildImage(grid: Grid) {

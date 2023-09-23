@@ -1,4 +1,7 @@
+use image::RgbaImage;
+
 use crate::ports::models::m_subjects::Player;
+use crate::ports::traits::t_universe::TUniverse;
 
 use super::config::Config;
 use super::map::Map;
@@ -21,5 +24,11 @@ impl Universe {
             maps,
             current_map,
         }
+    }
+}
+
+impl TUniverse<RgbaImage, Map> for Universe {
+    fn current_map(&mut self) -> &mut Map {
+        &mut self.current_map
     }
 }
