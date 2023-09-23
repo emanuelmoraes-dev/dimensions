@@ -12,12 +12,7 @@ pub struct XColor {
 #[wasm_bindgen]
 impl XColor {
     #[wasm_bindgen(constructor)]
-    pub fn new(color: &[u8]) -> Self {
-        Self {
-            r: color[0],
-            g: color[1],
-            b: color[2],
-            a: color[3],
-        }
+    pub fn new(r: u8, g: u8, b: u8, a: u8) -> Self {
+        Self { r, g, b, a }
     }
 }
