@@ -6,7 +6,6 @@ use wasm_bindgen::prelude::*;
 use crate::export::x_core::XCore;
 use crate::export::x_data::x_color::XColor;
 use crate::export::x_data::x_image::{XImage, XImageFormatEnum};
-use crate::export::x_data::x_serialization::x_image_serializalized::XImageSerialized;
 use crate::export::x_data::x_style::XAlignEnum;
 use crate::ports::traits::t_gen::{TGen, TImageGen};
 
@@ -24,23 +23,6 @@ pub struct XImageCombine;
 
 #[wasm_bindgen]
 impl XImageCombine {
-    #[wasm_bindgen]
-    pub fn combine(x: &XCore, format: XImageFormatEnum, bg_color: &XColor, align_x: XAlignEnum, align_y: XAlignEnum, ximages_serialized: Vec<JsValue>) -> Option<XImage> {
-        let mut images: Vec<RgbaImage> = Vec::new();
-        for js_value in ximages_serialized {
-            if let Ok(image) = serde_wasm_bindgen::from_value::<XImageSerialized>(js_value) {
-                let image = image.into();
-                images.push(image);
-            } else {
-                return None;
-            }
-        }
-        let images_ref: Vec<&RgbaImage> = images.iter().collect();
-        Some(combine_vec(
-            x, format, bg_color, align_x, align_y, images_ref,
-        ))
-    }
-
     #[wasm_bindgen]
     pub fn combine2(x: &XCore, format: XImageFormatEnum, bg_color: &XColor, align_x: XAlignEnum, align_y: XAlignEnum,
                     i1: &XImage, i2: &XImage) -> XImage {
