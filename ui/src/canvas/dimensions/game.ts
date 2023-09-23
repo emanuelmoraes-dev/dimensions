@@ -66,21 +66,20 @@ export class Dimensions implements IGame {
         this.map = new MapImages(this.core)
         this.grid = Grid.build(this.canvas, this.config.grid)
 
+        this.processGrid(false)
         XDebug.showCharacter(this.core)
-
-        // setInterval(() => {
-        //     this.map.clear()
-        // }, 3000);
     }
 
     draw(): void {
         this.animation.tick()
+        this.processGrid(true)
+    }
 
+    processGrid(draw: boolean): void {
         const canvas = this.canvas
-        const context = canvas.context
         const canvasWidth = canvas.element.width
         const canvasHeight = canvas.element.height
-        context.clearRect(0, 0, canvasWidth, canvasHeight)
+        // canvas.context.clearRect(0, 0, canvasWidth, canvasHeight)
 
         const imageWidth = this.grid.imageWidth
         const imageHeight = this.grid.imageHeight
@@ -89,15 +88,23 @@ export class Dimensions implements IGame {
         const maxCanvasSize = Math.max(canvasWidth, canvasHeight)
         const maxDeep = Math.floor(maxCanvasSize / maxImageSize) + 2
 
-        let drawn = false
+        let fits = false
         let grid = this.grid
         let lastDeep = grid.minDeep
         while (grid.minDeep <= maxDeep) {
             const image = this.map.getImage(grid)
 
-            if (grid.draw(this.canvas, image, imageWidth, imageHeight)) {
-                drawn = true
-                this.map.mark(grid, {drawn: true})
+            let canDraw: boolean
+
+            if (draw) {
+                canDraw = grid.draw(this.canvas, image, imageWidth, imageHeight)
+            } else {
+                canDraw = grid.canDraw(this.canvas, image, imageWidth, imageHeight)
+            }
+
+            if (canDraw) {
+                fits = true
+                this.map.mark(grid, {drawn: draw})
             } else {
                 this.map.mark(grid, {drawn: false})
             }
@@ -107,11 +114,11 @@ export class Dimensions implements IGame {
             if (grid.minDeep > lastDeep) {
                 lastDeep = grid.minDeep
 
-                if (!drawn) {
+                if (!fits) {
                     break
                 }
 
-                drawn = false
+                fits = false
             }
         }
     }
