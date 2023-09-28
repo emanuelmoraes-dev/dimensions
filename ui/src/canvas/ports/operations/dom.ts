@@ -24,7 +24,7 @@ export default {
         this.setFullSize(game)
         window.addEventListener('resize', () => {
             this.setFullSize(game)
-            game.draw()
+            game.loop()
         })
     }
 }
