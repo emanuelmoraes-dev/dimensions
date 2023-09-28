@@ -70,7 +70,7 @@ export class Dimensions implements IGame {
         XDebug.showCharacter(this.core)
     }
 
-    draw(): void {
+    loop(): void {
         this.animation.tick()
         this.processGrid(true)
     }

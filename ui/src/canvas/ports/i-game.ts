@@ -10,5 +10,5 @@ export interface IGame extends Iid {
     grid: IGrid
 
     setup(): Promise<void>
-    draw(): void
+    loop(): void
 }
